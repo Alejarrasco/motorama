@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html'%} {% block content %}
+<h1>Categorias</h1>
+
+{{error}} {% for category in categorias %}
+<li>
+  <strong>Nombre: {{category.nombre}}</strong>
+  <p>Descripcion: {{category.descripcion}}</p>
+</li>
+{% endfor %} {% endblock %}

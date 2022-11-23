@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrador GUI</title>
+    <link rel="stylesheet" href="{% static 'styles/administrador.css'%}" />
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <a href="{% url 'homeadmin' 1 %}"><img src="{% static 'images/logo.png' %}" width="200" alt="" /></a>
+      </div>
+      <ul class="menu">
+
+        <li>
+          <a href="{% url 'leerAdministradores' %}">Administradores</a>
+        </li>
+
+        <li>
+          <a href="{% url 'crearUsuarios' %}">Crear Usuarios</a>
+        </li>
+
+        <li>
+          <a href="{% url 'leerUsuarios' %}">Usuarios</a>
+        </li>
+
+        <li>
+          <a href="{% url 'leerReservas' %}">Reservas</a>
+        </li>
+
+        <li>
+          <a href="{% url 'leerProductos' %}">Administrar Productos</a>
+        </li>
+
+        <li>
+          <a href="{% url 'administrarProductos' %}">Forms Productos</a>
+        </li>
+
+        <li>
+          <a href="{% url 'aniadir_producto' %}">Añadir Producto</a>
+        </li>
+
+        <li>
+          <a href="{% url 'leerCategorias' %}">Categorias</a>
+        </li>
+
+        <li>
+          <a href="{% url 'crearCategorias' %}">Añadir Categorias</a>
+        </li>
+
+        <li>
+          <a href="{% url 'index' %}">Logout</a>
+        </li>
+      </ul>
+    </section>
+    <main class="container">
+      {% block content %}
+      <!--Aqui podra tener contenido-->
+      {% endblock %}
+    </main>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+body {
+    background: #202020;
+    color: whitesmoke;
+  }
+  .menu {
+    list-style: none;
+    padding: 0%;
+    background: #691010;
+    width: 100%;
+    max-width: 150px;
+    margin: auto;
+    position: fixed;
+    top: 10%;
+    left: 0%;
+  }
+  .menu li a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 20px;
+    display: block;
+  }
+  .menu li {
+    display: block;
+    text-align: center;
+  }
+  .menu li a:hover {
+    background: coral;
+  }
+  img {
+    width: 150px;
+    height: auto;
+    margin: auto;
+    border-radius: 10px;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+  }
+  
+  .container {
+    max-width: 1000px; /* Para pantalla grande: padding: 1000px; */
+    margin: auto;
+    padding: 20px 10;
+  }
+  
+  .card {
+    background: whitesmoke;
+    color: black;
+    padding: 3px;
+    margin-bottom: 10px;
+  }
+  
+  .input {
+    background: wheat;
+    padding: 10px;
+    text-align: center;
+    display: block;
+  }

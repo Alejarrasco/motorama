@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link type="text/css" href='{% static "styles/signup.css" %}'rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+        <div class="title">Registrar</div>
+        <form method = "POST">{% csrf_token %}
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Nombre</span>
+                    <input type="text" placeholder="Ingrese su nombre" name="Nombre" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Apellido</span>
+                    <input type="text" placeholder="Ingrese su apellido" name="Apellido"required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Direccion</span>
+                    <input type="text" placeholder="Ingrese su direccion" name="Direccion"required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Celular</span>
+                    <input type="text" placeholder="Ingrese su celular" name="Celular" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">NIT</span>
+                    <input type="text" placeholder="Ingrese su NIT" name="NIT" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Correo</span>
+                    <input type="email" placeholder="Ingrese una contraseña" name="Correo" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Contraseña</span>
+                    <input type="text" placeholder="Ingrese su contraseña " name ="Password" required>
+                </div>
+            </div>
+            <div class="boton">
+                <input type="submit" value="Registro">
+            </div>
+            <div class="boton_Regresar">
+                <a href="/">Regresar</a>
+            </div>
+            <p><a href="{% url 'paginaLogin' %}">Ya tengo una cuenta</a></p>
+
+        </form>
+        {% if messages %}
+    {% for msg in messages %}
+    <b>{{msg}}</b>
+    {% endfor %}
+    {% endif %}
+    </div>
+</body>
+</html>

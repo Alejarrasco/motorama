@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html'%} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas</title>
+    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
+  </head>
+  <body>
+    <div id="main-container">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Categoria</th>
+            <th>Detalles</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Disponible</th>
+          </tr>
+        </thead>
+        <form method="POST">
+          {{ forms.management_form }} {% csrf_token %} {% for form in forms %}
+            <td>{{form.nombre}}</td>
+
+            <td>{{form.marca}}</td>
+
+            <td>{{form.categoria_id_categoria}}</td>
+
+            <td>{{form.descripcion}}</td>
+
+            <td>{{form.stock}}</td>
+
+            <td>{{form.precio}}</td>
+            <td>{{form.disponible}}</td>
+            {{form.id}}
+          </tr>
+
+          {% endfor %}
+          <button>Guardar</button>
+        </form>
+      </table>
+      <!--fin logica-->
+      {% endblock %}
+    </div>
+  </body>
+</html>

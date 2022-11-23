@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %} {% block content %}
+
+<h1>Administradores</h1>
+
+{% for administrador in administradores %}
+<article class="card">
+  <h1>{{administrador.id}}</h1>
+</article>
+{% endfor %} {% endblock %}

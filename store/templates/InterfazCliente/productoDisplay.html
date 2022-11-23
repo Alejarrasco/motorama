@@ -1,0 +1,22 @@
+{% extends 'layouts/base_cliente.html'%}
+
+{% block content %}
+
+<h1><b>{{producto.nombre}}</b></h1>
+        <!--<img src="{{producto.imagen.url}}" alt="Avatar" style="width:100%">-->
+        <div class="displayer">
+            
+            <p>{{producto.descripcion}}</p>
+            <p><i>Disponible en stock: {{producto.stock}}</i></p>
+            <p>${{producto.precio}}</p>
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}<br>
+                <button>
+                    Agregar al Carrito
+                </button>
+            </form>
+            <p><a href="{% url 'products' cli=142857 %}">Volver</a></p>
+        </div>
+
+{% endblock %}

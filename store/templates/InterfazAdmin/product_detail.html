@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html'%} {% block content %}
+
+<h1>{{producto.nombre}}</h1>
+{{error}}
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <button>Aplicar cambios</button>
+</form>
+
+<form action="{% url 'eliminarProducto' productos.id %}" method="POST">
+  {% csrf_token %}
+  <button>Eliminar producto</button>
+</form>
+
+{% endblock %}

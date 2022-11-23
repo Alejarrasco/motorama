@@ -1,0 +1,24 @@
+{% extends 'layouts/base_cliente.html'%}
+
+
+{% block content %}
+    <h1>Catalogo de Productos</h1>
+    <p>Productos disponibles</p>
+
+    {% for producto in productos %}
+    {% if producto.disponible %}
+    <!--Sugerencia de Copilot-->
+    <div class="card">
+        <!--<img src="{{producto.imagen.url}}" alt="Avatar" style="width:100%">-->
+        
+        <div class="container">
+            <h4><b>{{producto.nombre}}</b></h4>
+            <p>Bs.{{producto.precio}}</p>
+            
+            <p><a href="{% url 'productDisplay' cli=cliente.NIT pid=producto.id %}">Agregar al carrito</a></p>
+            
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}

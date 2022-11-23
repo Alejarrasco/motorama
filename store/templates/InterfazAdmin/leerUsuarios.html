@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html'%} {% block content %}
+<h1>Usuarios</h1>
+
+{{error}} {% for user in usuarios %}
+<!--Llaves iguales-->
+<article class="card">
+  <p>Nombre: {{user.nombre}}</p>
+  <p>Apellido: {{user.apellido}}</p>
+  <p>Direccion: {{user.direccion}}</p>
+  <p>Correo: {{user.correo}}</p>
+</article>
+
+{% endfor %} {% endblock %}

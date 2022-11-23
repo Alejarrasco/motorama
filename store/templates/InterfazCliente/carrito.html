@@ -1,0 +1,23 @@
+{% extends 'layouts/base_cliente.html' %}
+
+{% block content %}
+    <h1>Carrito</h1>
+
+    {% for item in productos %}
+        <div>
+            <h3>{{item.producto.nombre}}</h3>
+            <p>Bs.{{item.producto.precio}} c/u     cant.{{item.cantidad}}</p>
+            
+        </div>
+
+
+    {% endfor %}
+    {% for valor in subtotal %}
+        <p>Subtotal: Bs.{{valor}}</p>
+    {% endfor %}
+    <p>Total a pagar: Bs.{{total}}</p>
+
+    
+
+    <a href="{% url 'confirmSale' cliente.NIT %}">Comprar</a>
+{% endblock %}

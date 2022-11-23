@@ -1,0 +1,46 @@
+{% load static %}
+<img src="{% static 'images/logo.png'%}" alt="" width="200px">
+<div class=""cabecera_factura>
+    <h1>MOTORAMA S.R.L.</h1>
+    <p><i>NIT 123456789</i></p>
+    <p>Factura No. {{ factura.id }}</p>
+</div>
+<div class="datos_empresa">
+    Casa Matriz: C.Heroes del Acre N°1534 <br>
+    Teléfono: 1234567 <br>
+    La Paz - Bolivia <br>
+</div>
+
+Fecha: {{ factura.fecha }} <br>
+Cliente: {{ factura.razon_social }} <br>
+NIT: {{ factura.venta.carrito.cliente.NIT }} <br>
+Vendedor: {{ factura.venta.administrador.usuario.nombre }} {{ factura.venta.administrador.usuario.apellido }} <br>
+
+Detalle de la Factura
+<table>
+    <thead>
+        <tr>
+            <th>Cod Producto</th>
+            <th>Cantidad</th>
+            <th>Concepto</th>
+            <th>Precio Unitario Bs.</th>
+            <th>Monto Bs.</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in detalle %}
+        <tr>
+            <td>{{ item.producto.id }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.producto.nombre }}</td>
+            <td>{{ item.producto.precio }}</td>
+            <!--<td>{{ sad }}</td> Corregir esto-->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+Son: {{ total_letras }} <br>
+Impuesto sobre el valor agregado: {{ factura.IVA }} <br>
+Total: {{ factura.total }} <br>
+
+Gracias por su compra, vuelva pronto

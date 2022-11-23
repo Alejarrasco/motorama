@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" href='{% static "styles/login.css" %}'rel="stylesheet">
+</head>
+<body>
+    <div id="contenedor">
+        <div id="central">
+            <div id="login">
+                <div class="titulo">
+                    Iniciar Sesión
+                </div>
+                <form id="loginform" method="POST">{% csrf_token %}
+                    
+                    <input type="text" placeholder="Correo" name="Correo" required>
+                    
+                    <input type="password" placeholder="Contraseña" name="Password" required>
+                    
+                    <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <b>{{msg}}</b>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+                <div class="boton_Regresar">
+                    <a href="/">Regresar</a>
+                </div>
+                <div class="imagen">
+                    <img src = "{% static 'images/logo.png' %}">
+                </div>
+            </div>  
+        </div>
+    </div>
+    
+</body>
+</html>

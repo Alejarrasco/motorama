@@ -1,0 +1,8 @@
+{% extends 'layouts/base.html' %} {% block content %} {{error}} 
+{% for form in forms %}
+<form method="POST">
+  {% csrf_token %}
+  <article class="card">{{form.as_p}}</article>
+  <button>Guardar</button>
+</form>
+{% endfor %} {% endblock %}

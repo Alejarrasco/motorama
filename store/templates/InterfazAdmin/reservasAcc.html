@@ -1,0 +1,88 @@
+{% extends 'layouts/base.html'%} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas</title>
+    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
+  </head>
+  <body>
+    <div id="main-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Facturar</th>
+            <th>Fecha</th>
+            <th>Carrito</th>
+            <th>Forma de pago</th>
+            <th>Cliente</th>
+          </tr>
+        </thead>
+        {% for reserva in reservas %}
+        <tr>
+          <td>
+            <form action="{% url 'facturar' reserva.pk %}" method="POST">
+              {% csrf_token %}
+              <button class="btn-mas">Facturar</button>
+            </form>
+          </td>
+          <td>{{reserva.fecha}}</td>
+          <td>
+            <form action="{% url 'detalleReserva' reserva.productos %}" method="POST">
+              {% csrf_token %}
+              <button class="btn-mas">
+                Detalle del carrito:{{reserva.productos}}
+              </button>
+            </form>
+            </form>
+          </td>
+          <td>{{reserva.forma_de_pago}}</td>
+          <td>{{reserva.productos.cliente.id_usuario.apellido}}</td>
+        </tr>
+        {% endfor %} 
+      </table>
+      <!--fin logica-->
+
+
+
+
+    </div>
+    <form action="{% url 'leerReservas' %}" method="POST">
+      {% csrf_token %}
+      <button class="btn-mas">En espera</button>
+    </form>
+
+    <form action="{% url 'reservasAceptadas' %}" method="POST">
+      {% csrf_token %}
+      <button class="btn-mas">Confirmados</button>
+    </form>
+
+    <div id="combo-box1">
+      <select name="Productos reservados" id="Productos_reservados">
+        <option value="Productos reservados">Reservas en espera</option>
+        <option value="Productos recogidos">Reservas aceptadas</option>
+      </select>
+    </div>
+    <div id="combo">
+      <select name="Tipo_de_producto" id="Tipo_de_producto">
+        <option value="Tipo">Tipo de Producto</option>
+        <option value="Tipo1">Tipo1</option>
+        <option value="Tipo2">Tipo2</option>
+        <option value="Tipo3">Tipo3</option>
+        <option value="Tipo4">Tipo4</option>
+      </select>
+    </div>
+    <button class="boton1">
+      <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+      </span>
+      <span class="button-text">regresar</span>
+    </button>
+    <div>
+      <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
+    </div>
+  </body>
+</html>
+{% endblock %}

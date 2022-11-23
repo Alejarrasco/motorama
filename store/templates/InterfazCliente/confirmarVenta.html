@@ -1,0 +1,35 @@
+{% extends 'layouts/base_cliente.html' %}
+
+{% block content %}
+
+{% for item in productos %}
+<div>
+    <h3>{{item.producto.nombre}}</h3>
+    <p>Bs.{{item.producto.precio}}c/u cant.{{item.cantidad}}</p>
+    <!--<p>Tot {{item.price}}</p>-->
+</div>
+
+
+{% endfor %}
+<p>Total a pagar: Bs.{{total}}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Seleccione su forma de pago:</legend>
+            <div class="radiobox">
+                <input type="radio" name="pago" value="efectivo" id="pago1" checked>
+                <label for="pago1">Efectivo</label>
+                <input type="radio" name="pago" value="transferencia" id="pago2">
+                <label for="pago2">Transferencia</label>
+            </div>
+        </fieldset>
+
+        <!--{% csrf_token %}
+        {{form.as_p}}<br>-->
+        <button>
+            save
+        </button>
+    </form>
+
+{% endblock %}

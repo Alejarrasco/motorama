@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html'%} {% block content %}
+<h1>Productos</h1>
+
+{{error}} {% for product in productos %} {% for category in categorias %}
+<!--Llaves iguales-->
+{% if category.id == product.categoria_id_categoria_id %}
+
+<li>
+  <a href="{% url 'product_detail' product.id %}">
+    <strong>{{product.nombre}}</strong>
+  </a>
+  <p>Descripcion: {{product.descripcion}}</p>
+  <p>Cantidad: {{product.stock}}</p>
+  <p>Precio: {{product.precio}}</p>
+</li>
+{% endif %} {% endfor %} {% endfor %} {% endblock %}

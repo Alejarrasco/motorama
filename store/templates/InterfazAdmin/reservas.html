@@ -1,0 +1,107 @@
+{% extends 'layouts/base.html'%} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas</title>
+    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
+  </head>
+  <body>
+    <div id="main-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Agregar/Quitar</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Penalizacion</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            <a href="#" class="btn-mas">+</a>
+            <a href="#" class="btn-menos">-</a>
+          </td>
+          <td>Repuesto1</td>
+          <td>500</td>
+          <td>11/11/2022</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#" class="btn-mas">+</a>
+            <a href="#" class="btn-menos">-</a>
+          </td>
+          <td>Repuesto2</td>
+          <td>600</td>
+          <td>11/11/2022</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#" class="btn-mas">+</a>
+            <a href="#" class="btn-menos">-</a>
+          </td>
+          <td>Repuesto3</td>
+          <td>700</td>
+          <td>11/11/2022</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#" class="btn-mas">+</a>
+            <a href="#" class="btn-menos">-</a>
+          </td>
+          <td>Repuesto4</td>
+          <td>800</td>
+          <td>11/11/2022</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="#" class="btn-mas">+</a>
+            <a href="#" class="btn-menos">-</a>
+          </td>
+          <td>Repuesto5</td>
+          <td>900</td>
+          <td>11/11/2022</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </div>
+    <div id="combo-box1">
+      <select name="Productos reservados" id="Productos_reservados">
+        <option value="Productos reservados">Productos reservados</option>
+        <option value="Productos recogidos">Productos recogidos</option>
+      </select>
+    </div>
+    <div id="combo">
+      <select name="Tipo_de_producto" id="Tipo_de_producto">
+        <option value="Tipo">Tipo de Producto</option>
+        <option value="Tipo1">Tipo1</option>
+        <option value="Tipo2">Tipo2</option>
+        <option value="Tipo3">Tipo3</option>
+        <option value="Tipo4">Tipo4</option>
+      </select>
+    </div>
+    <button class="boton1">
+      <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+      </span>
+      <span class="button-text">regresar</span>
+    </button>
+    <div>
+      <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
+    </div>
+  </body>
+</html>
+{% endblock %}
