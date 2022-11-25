@@ -359,9 +359,18 @@ def productDisplay(request, cli, pid): #aparece cuando seleccionas un producto
                                                                         'producto': productoActivo,
                                                                         'form': AddToCartForm()})
     else:
-        carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
-        carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=request.POST['quantity'])
-        return redirect('cart', cli=cli)
+        Q = int(request.POST['quantity'])
+        if productoActivo.stock >= Q:
+            carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
+            carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=Q)
+            productoActivo.stock -= Q
+            productoActivo.save()
+            return redirect('cart', cli=cli)
+        else:
+            return render(request, 'InterfazCliente\productoDisplay.html', {'cliente': clienteActivo,
+                                                                            'producto': productoActivo,
+                                                                            'form': AddToCartForm(),
+                                                                            'error': 'No hay suficiente stock'})
 
 def cart(request, cli): #cuando presionas carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)
