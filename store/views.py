@@ -384,23 +384,23 @@ def confirmarVenta(request, cli):
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
     productos = carrito_producto.objects.filter(carrito=carritoActivo)
+
+    #Seleccionar un administrador al azar
     admins = list(administrador.objects.filter().values('pk'))
     ads=[]
     for admin in admins:
         for i in admin.values():
             print(i)
             ads.append(i)
-    subtotal = list()
-    total = 0
-    for item in productos:
-        subtotal.append(item.producto.precio * item.cantidad)
-        total += item.producto.precio * item.cantidad
+    
 
 
     if request.method == 'GET':
+        if not productos.exists():
+            return redirect('cart', cli=clienteActivo.NIT)
+
         return render(request, 'InterfazCliente\confirmarVenta.html', {'productos': productos,
-                                                                        'subtotal': subtotal,
-                                                                        'total': total,
+                                                                        'total': carritoActivo.total(),
                                                                         'cliente': clienteActivo})
     else:
         carritoActivo.activo = False

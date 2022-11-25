@@ -7,9 +7,11 @@ urlpatterns=[
 
     path('', views.index, name="index"),
 
+    #Interfaz Login
     path('signUp/',views.registroUsuario,name='registro'),
     path('Log_In/',views.paginaLogin,name='paginaLogin'),
 
+    #Interfaz Administrador
     path('homeadmin/<int:aid>', views.homeadmin, name="homeadmin"), 
     path('leerAdministradores/', views.leerAdministradores, name="leerAdministradores"), 
     #path('crearAdministradores/', views.crearAdministradores, name="crearAdministradores"), 
@@ -32,7 +34,8 @@ urlpatterns=[
     path('leerCategorias/', views.leerCategorias, name="leerCategorias"),
     path('leerCategorias/create/', views.CrearCategorias, name="crearCategorias"),
     path('administrarProductos/', views.administrarProducto, name="administrarProductos"),
-    #!!!!ALE!!!!
+
+    #Interfaz Cliente
     #path('', views.index, name='index'),
     path('home/<int:cli>', views.home, name="home"),
     path('about/<int:cli>', views.about, name="about"),
