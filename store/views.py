@@ -362,9 +362,16 @@ def productDisplay(request, cli, pid): #aparece cuando seleccionas un producto
         Q = int(request.POST['quantity'])
         if productoActivo.stock >= Q:
             carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
-            carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=Q)
-            productoActivo.stock -= Q
-            productoActivo.save()
+
+            cpActivo = carrito_producto.objects.filter(carrito=carritoActivo, producto=productoActivo)
+            if cpActivo.exists():
+                cpActivo = cpActivo[0]
+                cpActivo.cantidad += Q
+                cpActivo.save()
+            else:
+                carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=Q)
+                productoActivo.stock -= Q
+                productoActivo.save()
             return redirect('cart', cli=cli)
         else:
             return render(request, 'InterfazCliente\productoDisplay.html', {'cliente': clienteActivo,
