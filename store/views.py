@@ -23,7 +23,7 @@ import numpy as np
 def index(request):
     return render(request, 'index.html', {})
 
-def registroUsuario(request):
+def registroUsuario(request): #todo: corrige el campo de verificar contrasenia, no entra bien
     if request.method=='POST':
         nombre=request.POST['Nombre']
         apellido = request.POST['Apellido']
@@ -32,13 +32,30 @@ def registroUsuario(request):
         nit = request.POST['NIT']
         correo = request.POST['Correo']
         password = request.POST['Password']
-        u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
-        u.save()
-        cliente.objects.create(NIT=nit,id_usuario=u)
-        carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)
-        
-        messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
-        return render(request,'login/signUp.html')
+        if(request.POST['Password'] == request.POST['Password2']):
+                getCli=cliente.objects.all()
+                if getCli:
+                    nitExist=cliente.objects.filter(NIT=nit)
+                    if(nitExist):
+                        messages.success(request,'El NIT ' +request.POST['NIT']+ ' ya esta registrado para un Cliente')
+                        return render(request,'login/signUp.html')
+                    else:
+                        u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
+                        u.save()
+                        cliente.objects.create(NIT=nit,id_usuario=u)
+                        carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
+                        messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
+                        return render(request,'login/signUp.html')   
+                else:
+                    u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
+                    u.save()
+                    cliente.objects.create(NIT=nit,id_usuario=u)
+                    carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
+                    messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
+                    return render(request,'login/signUp.html')    
+        else:
+            messages.success(request, 'Las contraseñas no coinciden, vuelve a intentarlo')
+            return render(request,'login/signUp.html')
     else:
         return render(request,'login/signUp.html')
 
@@ -46,11 +63,25 @@ def paginaLogin(request):
     if request.method=='POST':
         try:
             detalleUsuario=usuario.objects.get(correo=request.POST['Correo'],password=request.POST['Password'])
+            clientes=cliente.objects.get(id_usuario=detalleUsuario)
+            print(cliente.objects.get(id_usuario=detalleUsuario))
             return render(request, 'InterfazCliente\home.html', {'usuario': detalleUsuario,
                                                          'cliente': cliente.objects.get(id_usuario=detalleUsuario)})
         except usuario.DoesNotExist as e:
             messages.success(request,'Nombre de Usuario o Password incorrecto!')
     return render(request,'login/Log_In.html')
+
+def paginaLoginAdmin(request): #todo: corregir con if
+    if request.method=='POST':
+        try:
+            detalleUsuario=usuario.objects.get(correo=request.POST['Correo'],password=request.POST['Password'])
+            admin=administrador.objects.get(usuarios_id_usuario_id=detalleUsuario)
+            print(admin)
+            return redirect("homeadmin", aid=admin.pk)
+        except usuario.DoesNotExist as e:
+            messages.success(request,'Nombre de Usuario o Password incorrecto!')
+    return render(request,'login/Log_In_Admin.html')
+
 
 #     def sign_Up(request):
 #         return render(request, 'login/signUp.html')
@@ -74,13 +105,15 @@ def paginaLogin(request):
 
 def homeadmin(request, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
-    return render(request, 'InterfazAdmin\home.html', {'admin': adminActivo})      
+    return render(request, 'InterfazAdmin\home.html', {'admin': adminActivo})
 
-def leerAdministradores(request):
+def leerAdministradores(request, aid):
     #projects = list(Project.objects.values()) #lista de proyectos en query set
+    adminActivo = get_object_or_404(administrador, id=aid)
     administradores=administrador.objects.all() 
     return render(request,'InterfazAdmin/leerAdministradores.html',{
-        'administradores':administradores
+        'administradores':administradores,
+        'admin': adminActivo
     })
 
 def crearAdministradores(request): #este es el secundario, principalmente es con crear usuario
@@ -116,29 +149,34 @@ def leerPenalizaciones(request):
         , monto=request.POST["monto"])
         return redirect('index')
 
-def leerProductos(request):
+def leerProductos(request, aid):
     #projects = list(Project.objects.values()) #lista de proyectos en query set
     #productos=producto.objects.all() 
+    adminActivo = get_object_or_404(administrador, id=aid)
     productos = producto.objects.all()
     categorias = categoria.objects.all()
     try:
         return render(request,'InterfazAdmin/leerProductos.html',{
             'productos':productos,
+            'admin': adminActivo,
             'categorias' : categorias
         })
     except:
         return render(request,'InterfazAdmin/leerProductos.html',{
             'productos':productos,
+            'admin': adminActivo,
             'error' : 'No hay productos'
         })
 
 
 
-def CrearProductos(request):
+def CrearProductos(request, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     if request.method == 'GET':
         #show interface
         return render(request,'InterfazAdmin/create_product.html',{
-        'form': CrearProducto
+        'form': CrearProducto,
+        'admin': adminActivo
         })        
     else:
         try:
@@ -146,35 +184,40 @@ def CrearProductos(request):
             form.save()
             #new_task.save()
             #producto.objects.create(form)    
-            return redirect('leerProductos')
+            return redirect('leerProductos', aid=adminActivo.pk)
         except ValueError:
             return render(request, 'InterfazAdmin/create_product.html',{
             'form' : CrearProducto,
+            'admin': adminActivo,
             'error' : 'Please provide valid data'
             })
 
 
-def administrarProducto(request):
-    productosFormset=modelformset_factory(producto, form=CrearProducto, can_delete=True)
+def administrarProducto(request, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
+    productosFormset=modelformset_factory(producto, form=CrearProducto)
     if request.method == 'POST':
         form = productosFormset(request.POST)
         print(request.POST)
         #print(request.POST)
         form.save()
-        return redirect('leerProductos')
+        return redirect('leerProductos', aid=adminActivo.pk)
     form = productosFormset()
     return render(request, 'InterfazAdmin/administrarProductos.html', {
-        'forms' : form
+        'forms' : form,
+        'admin': adminActivo,
     })
 
-def product_detail(request, producto_id):
+def product_detail(request, producto_id, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     if request.method == 'GET':
         #task=Task.objects.get(pk=task_id) #asi obtenermos un dato en base a lo ingresado por referencia
         productos = get_object_or_404(producto, pk=producto_id) #del modelo task buscara el id
         form=CrearProducto(instance=productos) #llena el form con la tarea
         return render(request, 'InterfazAdmin/product_detail.html',{
             'productos' : productos,
-            'form' : form
+            'form' : form,
+            'admin': adminActivo
         })
     else:
         try:
@@ -183,11 +226,12 @@ def product_detail(request, producto_id):
             form=CrearProducto(request.POST, instance=productos) #obtiene todo lo que haya en los forms y guarda el nuevo form
             form.save()
             #pass parece que sirve para continuar a traves de un error
-            return redirect('leerProductos')
+            return redirect('leerProductos', aid=adminActivo.pk)
         except ValueError:
             return render(request, 'InterfazAdmin/product_detail.html',{
             'productos' : productos,
             'form' : form,
+            'admin': adminActivo,
             'error' : 'Error actualizando producto'
         })
 
@@ -197,73 +241,102 @@ def eliminarProducto(request, producto_id):
         productos.delete()
         return redirect('leerProductos')
 
-def CrearUsuarios(request):
+def CrearUsuarios(request, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     if request.method == 'GET':
         #show interface
         return render(request,'InterfazAdmin/create_usuario.html',{
-        'form': CrearUsuario
+        'form': CrearUsuario,
+        'admin': adminActivo,
         })        
     else:
         try:
-            form = CrearUsuario(request.POST) #esto se quedara con el form en html parece
-            new_task = form.save()
-            id_user = get_object_or_404(usuario, nombre=request.POST['nombre'], apellido=request.POST['apellido'], direccion=request.POST['direccion'], celular=request.POST['celular'], correo=request.POST['correo'], password=request.POST['password'])
-            administrador.objects.create(usuarios_id_usuario=id_user)
-            #new_task.save()
-            #producto.objects.create(form)    
-            return redirect('leerUsuarios')
+            userEmail=usuario.objects.filter(correo=request.POST['correo'])
+            if userEmail:
+                return render(request, 'InterfazAdmin/create_usuario.html',{
+                'form' : CrearUsuario,
+                'admin': adminActivo,
+                'error' : 'El correo ya existe!'
+                })
+            else:
+                if(request.POST["password"] == request.POST["password2"]):
+                    u = usuario(nombre=request.POST['nombre'], apellido=request.POST['apellido'], direccion=request.POST['direccion'], celular=request.POST['celular'], correo=request.POST['correo'], password=request.POST['password'])
+                    u.save()
+                    id_user = get_object_or_404(usuario, nombre=request.POST['nombre'], apellido=request.POST['apellido'], direccion=request.POST['direccion'], celular=request.POST['celular'], correo=request.POST['correo'], password=request.POST['password'])
+                    administrador.objects.create(usuarios_id_usuario=id_user)
+                    #new_task.save()
+                    #producto.objects.create(form)    
+                    return redirect('leerUsuarios', aid=adminActivo.pk)
+                else:
+                    return render(request, 'InterfazAdmin/create_usuario.html',{
+                    'form' : CrearUsuario,
+                    'admin': adminActivo,
+                    'error' : 'Las contraseñas no coinciden'
+                    })
         except ValueError:
             return render(request, 'InterfazAdmin/create_usuario.html',{
             'form' : CrearUsuario,
-            'error' : 'Please provide valid data'
+            'admin': adminActivo,
+            'error' : 'Porfavor, ingrese datos correctos'
             })
 
-def leerUsuarios(request):
+def leerUsuarios(request, aid):
     #projects = list(Project.objects.values()) #lista de proyectos en query set
     #productos=producto.objects.all() 
+    adminActivo = get_object_or_404(administrador, id=aid)
     usuarios = usuario.objects.all()
     try:
         return render(request,'InterfazAdmin/leerUsuarios.html',{
             'usuarios':usuarios,
+            'admin': adminActivo,
         })
     except:
         return render(request,'InterfazAdmin/leerUsuarios.html',{
             'usuarios':usuarios,
+            'admin': adminActivo,
             'error' : 'No hay productos'
         })
 
-def CrearCategorias(request):
+def CrearCategorias(request, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     if request.method == 'GET':
         #show interface
         return render(request,'InterfazAdmin/create_categorias.html',{
-        'form': CrearCategoria
+        'form': CrearCategoria,
+        'admin': adminActivo
         })        
     else:
         try:
             form = CrearCategoria(request.POST) #esto se quedara con el form en html parece
             form.save()
-            return redirect('leerCategorias')
+            return redirect('leerCategorias', aid=adminActivo.pk)
         except ValueError:
             return render(request, 'InterfazAdmin/create_categorias.html',{
             'form' : CrearCategoria,
+            'admin': adminActivo,
             'error' : 'Porfavor, llene los campos con datos validos'
             })
 
 
-def leerCategorias(request):
+def leerCategorias(request, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     categorias = categoria.objects.all()
     try:
         return render(request,'InterfazAdmin/leerCategorias.html',{
             'categorias':categorias,
+            'admin': adminActivo,
         })
     except:
         return render(request,'InterfazAdmin/leerCategorias.html',{
             'categorias':categorias,
+            'admin': adminActivo,
             'error' : 'No hay categorias'
         })
 
-def leerReservas(request): #idea, haz que cuando estes en la pestania reserva puedas presionar detalle para asi ver todos los productos
-    ventas = venta.objects.all()
+def leerReservas(request, aid): #idea, haz que cuando estes en la pestania reserva puedas presionar detalle para asi ver todos los productos
+    adminActivo = get_object_or_404(administrador, id=aid)
+    ventas = venta.objects.filter(administrador_id=adminActivo.pk)
+    print(ventas)
     #print(ventas)
     # reservas= reserva.objects.all()
     # #print(reservas)
@@ -287,31 +360,37 @@ def leerReservas(request): #idea, haz que cuando estes en la pestania reserva pu
     # detalle=detalleReserva(request, 12)
     return render(request,'InterfazAdmin/reservas2.html',{
             'reservas' : ventas,
+            'admin': adminActivo
         })
 
-def leerReservasAceptadas(request): #idea, haz que cuando estes en la pestania reserva puedas presionar detalle para asi ver todos los productos
-    ventas = venta.objects.filter(estado='a').order_by('-estado')
+def leerReservasAceptadas(request, aid): #idea, haz que cuando estes en la pestania reserva puedas presionar detalle para asi ver todos los productos
+    adminActivo = get_object_or_404(administrador, id=aid)
+    ventas = venta.objects.filter(estado='a', administrador_id=adminActivo.pk).order_by('-estado')
     #print(ventas)
     return render(request,'InterfazAdmin/reservasAcc.html',{
-            'reservas' : ventas
+            'reservas' : ventas,
+            'admin': adminActivo
         })
 
 
-def aceptarReservas(request, venta_id):
+def aceptarReservas(request, venta_id, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     ventas=venta.objects.get(id=venta_id)
     ventas.estado='a'
     ventas.save()
     #penalizacion.objects.create(pk=venta_id, monto=0) #todo: cambialo, asignale no crees, como tarifario
     reserva.objects.create(pk=venta_id, precio=0, fecha=timezone.now(), venta_id=venta_id, penalizacion_id_penalizacion_id=1) #todo: cambialo
-    return redirect('leerReservas')
+    return redirect('leerReservas', aid=adminActivo.pk)
 
-def rechazarReservas(request, venta_id):
+def rechazarReservas(request, venta_id, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     ventas=venta.objects.get(id=venta_id)
     ventas.estado='r'
     ventas.save()
-    return redirect('leerReservas')
+    return redirect('leerReservas', aid=adminActivo.pk)
 
-def detalleReserva(request, carrito_id):
+def detalleReserva(request, carrito_id, aid):
+    adminActivo = get_object_or_404(administrador, id=aid)
     productos=carrito_producto.objects.filter(carrito=carrito_id)
     total = carrito.objects.get(id=carrito_id).total()
     # det=""
@@ -323,14 +402,16 @@ def detalleReserva(request, carrito_id):
         'carrito': carrito_id,
         'detalle' : productos,
         'total' : total,
+        'admin': adminActivo
     })
 
 
-def detalleReservaAcc(request, carrito_id): #esto no se aun si quitar
+def detalleReservaAcc(request, carrito_id, aid): #esto no se aun si quitar
+    adminActivo = get_object_or_404(administrador, id=aid)
     productos=carrito_producto.objects.filter(carrito=carrito_id)
     for item in productos:
         print(f"{item.producto.nombre} compro la cantidad de {item.cantidad}")
-    return redirect('reservasAceptadas')
+    return redirect('reservasAceptadas', aid=adminActivo.pk)
 
 #           ALE
 
@@ -421,6 +502,17 @@ def reservation(request, cli, nvv): #aparece cuando le das a save en carrito
     return render(request, 'InterfazCliente\\reserva.html', {'cliente': clienteActivo,
                                                             'ventas': ventas,
                                                             'nvv': nvv})
+
+def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    ventas = venta.objects.filter(productos__cliente=clienteActivo)
+    for i in ventas:
+        print(i.fecha)
+        print(i.administrador)
+    return render(request, 'InterfazCliente\\reservasAceptadas.html', {'cliente': clienteActivo,
+                                                            'ventas': ventas,
+                                                            'nvv': nvv})
+
 
 ### factura
 def facturar(request, res):

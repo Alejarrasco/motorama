@@ -11,44 +11,44 @@
   <body>
     <section class="container">
       <div>
-        <a href="{% url 'homeadmin' 1 %}"><img src="{% static 'images/logo.png' %}" width="200" alt="" /></a>
+        <a href="{% url 'homeadmin' admin.id %}"><img src="{% static 'images/logo.png' %}" width="200" alt="" /></a>
       </div>
       <ul class="menu">
 
         <li>
-          <a href="{% url 'leerAdministradores' %}">Administradores</a>
+          <a href="{% url 'leerAdministradores' admin.id %}">Administradores</a>
         </li>
 
         <li>
-          <a href="{% url 'crearUsuarios' %}">Crear Usuarios</a>
+          <a href="{% url 'crearUsuarios' admin.pk %}">Crear Usuarios</a>
         </li>
 
         <li>
-          <a href="{% url 'leerUsuarios' %}">Usuarios</a>
+          <a href="{% url 'leerUsuarios' admin.pk %}">Usuarios</a>
         </li>
 
         <li>
-          <a href="{% url 'leerReservas' %}">Reservas</a>
+          <a href="{% url 'leerReservas' admin.pk %}">Reservas</a>
         </li>
 
         <li>
-          <a href="{% url 'leerProductos' %}">Administrar Productos</a>
+          <a href="{% url 'leerProductos' admin.pk %}">Administrar Productos</a>
         </li>
 
         <li>
-          <a href="{% url 'administrarProductos' %}">Forms Productos</a>
+          <a href="{% url 'administrarProductos' admin.pk %}">Forms Productos</a>
         </li>
 
         <li>
-          <a href="{% url 'aniadir_producto' %}">Añadir Producto</a>
+          <a href="{% url 'aniadir_producto' admin.pk %}">Añadir Producto</a>
         </li>
 
         <li>
-          <a href="{% url 'leerCategorias' %}">Categorias</a>
+          <a href="{% url 'leerCategorias' admin.pk %}">Categorias</a>
         </li>
 
         <li>
-          <a href="{% url 'crearCategorias' %}">Añadir Categorias</a>
+          <a href="{% url 'crearCategorias' admin.pk %}">Añadir Categorias</a>
         </li>
 
         <li>

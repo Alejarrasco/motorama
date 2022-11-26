@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %} {% block content %} {{error}}
 
-<h1>Crear Usuario</h1>
+<h1>Crear Usuario Administrador</h1>
 <form method="POST">
   {% csrf_token %} {{form.as_p}}
   <button>Guardar</button>
