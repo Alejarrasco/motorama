@@ -458,8 +458,5 @@ def printfactura(request, nro):
     fact = get_object_or_404(factura, id=nro)
     detalle = carrito_producto.objects.filter(carrito=fact.venta_id_venta.productos)
     total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
-    valor = dict()
-    for det in detalle:
-        valor[det.producto.nombre] = det.cantidad * det.producto.precio
-    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras, 'valor': valor})                                                            
+    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
 
