@@ -440,9 +440,25 @@ def productDisplay(request, cli, pid): #aparece cuando seleccionas un producto
                                                                         'producto': productoActivo,
                                                                         'form': AddToCartForm()})
     else:
-        carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
-        carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=request.POST['quantity'])
-        return redirect('cart', cli=cli)
+        Q = int(request.POST['quantity'])
+        if productoActivo.stock >= Q:
+            carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
+
+            cpActivo = carrito_producto.objects.filter(carrito=carritoActivo, producto=productoActivo)
+            if cpActivo.exists():
+                cpActivo = cpActivo[0]
+                cpActivo.cantidad += Q
+                cpActivo.save()
+            else:
+                carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=Q)
+                productoActivo.stock -= Q
+                productoActivo.save()
+            return redirect('cart', cli=cli)
+        else:
+            return render(request, 'InterfazCliente\productoDisplay.html', {'cliente': clienteActivo,
+                                                                            'producto': productoActivo,
+                                                                            'form': AddToCartForm(),
+                                                                            'error': 'No hay suficiente stock'})
 
 def cart(request, cli): #cuando presionas carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)
@@ -465,23 +481,23 @@ def confirmarVenta(request, cli):
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
     productos = carrito_producto.objects.filter(carrito=carritoActivo)
+
+    #Seleccionar un administrador al azar
     admins = list(administrador.objects.filter().values('pk'))
     ads=[]
     for admin in admins:
         for i in admin.values():
             print(i)
             ads.append(i)
-    subtotal = list()
-    total = 0
-    for item in productos:
-        subtotal.append(item.producto.precio * item.cantidad)
-        total += item.producto.precio * item.cantidad
+    
 
 
     if request.method == 'GET':
+        if not productos.exists():
+            return redirect('cart', cli=clienteActivo.NIT)
+
         return render(request, 'InterfazCliente\confirmarVenta.html', {'productos': productos,
-                                                                        'subtotal': subtotal,
-                                                                        'total': total,
+                                                                        'total': carritoActivo.total(),
                                                                         'cliente': clienteActivo})
     else:
         carritoActivo.activo = False
@@ -534,8 +550,5 @@ def printfactura(request, nro):
     fact = get_object_or_404(factura, id=nro)
     detalle = carrito_producto.objects.filter(carrito=fact.venta_id_venta.productos)
     total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
-    valor = dict()
-    for det in detalle:
-        valor[det.producto.nombre] = det.cantidad * det.producto.precio
-    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras, 'valor': valor})                                                            
+    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
 
