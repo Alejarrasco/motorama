@@ -27,7 +27,7 @@
         {% for reserva in reservas %} {%if reserva.estado == 'p' %}
         <tr>
           <td>
-            <form action="{% url 'aceptarReserva' reserva.id %}" method="POST">
+            <form action="{% url 'aceptarReserva' reserva.id admin.pk %}" method="POST">
               {% csrf_token %}
               <button class="btn-mas">Aceptar</button>
             </form>
@@ -42,14 +42,14 @@
                 <a id="cerrar" href="#">&times;</a>
                 <div class="popupContent">
                   <form
-                    action="{% url 'rechazarReserva' reserva.id %}"
+                    action="{% url 'rechazarReserva' reserva.id admin.pk %}"
                     method="POST"
                   >
                     {% csrf_token %}
                     <button class="btn-mas">Si</button>
                   </form>
 
-                  <form action="{% url 'leerReservas' %}">
+                  <form action="{% url 'leerReservas' admin.pk %}">
                     <button class="btn-menos">No</button>
                   </form>
                 </div>
@@ -59,7 +59,7 @@
           <td>{{reserva.fecha}}</td>
           <td>
             <form
-              action="{% url 'detalleReserva' reserva.productos %}"
+              action="{% url 'detalleReserva' reserva.productos admin.pk %}"
               method="POST"
             >
               {% csrf_token %}
@@ -79,12 +79,12 @@
 
 
     </div>
-    <form action="{% url 'leerReservas' %}" method="POST">
+    <form action="{% url 'leerReservas' admin.pk %}" method="POST">
       {% csrf_token %}
       <button class="btn-mas">En espera</button>
     </form>
 
-    <form action="{% url 'reservasAceptadas' %}" method="POST">
+    <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
       {% csrf_token %}
       <button class="btn-mas">Confirmados</button>
     </form>
