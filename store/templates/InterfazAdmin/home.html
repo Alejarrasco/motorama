@@ -1,8 +1,46 @@
 {% extends 'layouts/base.html' %}
-
+{% load static %}
 {% block content %}
-    <h1>Home</h1>
-    <h2>Hi, {{admin}}</h2>
-    <p>Here you can manage the store</p>
+<div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="row">
+        <div class="col-12 col-lg-3">
+            <div class="row">
+                <div class="col-12 col-Lg-8 p-2">
+                    <article class="card h-100 bg-success">
+                        <div class="card-body">
+                            <div class="d-flex mb-3">
+                                <h1>Home</h1>
+                            </div>
+                        </div>
+                    </article>
+                    
+                </div>
+                <div class="col-12 col-Lg-8 p-2">
+                    <article class="card h-100 bg-warning">
+                        <div class="card-body">
+                            <div class="d-flex mb-3">
+                                <h2>Hola, {{admin}}</h2>
+                                <p>Here you can manage the store</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>  
+        </div>
+        <div class="col-12 col-lg-9 p-2">
+            <article class="card h-100 bg-secondary">
+                <div class="card-body">
+                    <div class="d-flex mb-3">
+                        <img src="{% static 'images/auto1.jpg' %}" alt="" class="border border-dark border-4 rounded-circle">
+                        <div class="ps-3">
+                            <h1>Home</h1>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+    
 
 {% endblock %}
