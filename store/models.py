@@ -89,16 +89,3 @@ class factura(models.Model):
     IVA = models.DecimalField(max_digits=10, decimal_places=2)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     venta_id_venta = models.ForeignKey(venta, on_delete=models.CASCADE)
-
-
-
-
-
-
-    
-
-
-
-
-
-
