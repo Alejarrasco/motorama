@@ -19,6 +19,7 @@
                 <th>Fecha</th>
                 <th>Estado</th>
                 <th>Encargado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,9 @@
                     
                     <td>Pendiente</td>
                     <td>{{ reserva.administrador }}</td>
+                    <td>
+                        <a href="{% url 'spyCarrito' cliente.NIT reserva.id %}">Ver</a>
+                    </td>
                 </tr>
             {% endif %}
             {% endfor %}

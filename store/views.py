@@ -448,6 +448,7 @@ def productDisplay(request, cli, pid): #aparece cuando seleccionas un producto
             if cpActivo.exists():
                 cpActivo = cpActivo[0]
                 cpActivo.cantidad += Q
+                productoActivo.stock -= Q
                 cpActivo.save()
             else:
                 carrito_producto.objects.create(carrito=carritoActivo, producto=producto.objects.get(id=pid), cantidad=Q)
@@ -476,6 +477,15 @@ def cart(request, cli): #cuando presionas carrito
                                                             'productos': productos,
                                                             'subtotal': subtotal,
                                                             'total': total})
+
+def removeProductoCarrito(request, cli, ccp):
+    itemeliminar = carrito_producto.objects.get(id=ccp)
+    productoActivo = producto.objects.get(id=itemeliminar.producto.id)
+    productoActivo.stock += itemeliminar.cantidad
+    productoActivo.save()
+    itemeliminar.delete()
+    return cart(request, cli)
+
 
 def confirmarVenta(request, cli):
     clienteActivo = get_object_or_404(cliente, NIT=cli)
@@ -529,6 +539,17 @@ def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
     return render(request, 'InterfazCliente\\reservasAceptadas.html', {'cliente': clienteActivo,
                                                             'ventas': ventas,
                                                             'nvv': nvv})
+
+def verCarrito(request, cli, ven):
+    ventaActiva = get_object_or_404(venta, id=ven)
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    productos = carrito_producto.objects.filter(carrito=ventaActiva.productos)
+    return render(request, 'InterfazCliente\spyCarrito.html', {'cliente': clienteActivo,
+                                                                'productos': productos,         
+                                                                'total': ventaActiva.productos.total(),
+                                                                'fecha': ventaActiva.fecha,
+                                                                'pago': ventaActiva.forma_de_pago,
+                                                                'admin': ventaActiva.administrador})
 
 
 ### factura

@@ -1,8 +1,8 @@
-{% extends 'layouts/base.html'%} 
-{% block content %}
-Detalle del carrito {{carrito}}: <br>
+{% extends 'layouts/base_cliente.html' %}
 
-<div class="table table-striped table-hover">
+{% block content %}
+    <h1>Carrito del {{fecha}}</h1>
+
     <table>
         <thead>
             <tr>
@@ -13,19 +13,24 @@ Detalle del carrito {{carrito}}: <br>
             </tr>
         </thead>
         <tbody>
-            {% for item in detalle %}
+            {% for item in productos %}
                 <tr>
                     <td>{{ item.producto.nombre }}</td>
                     <td>{{ item.cantidad }}</td>
                     <td>{{ item.producto.precio }}</td>
                     <td>{{ item.subtotal }}</td>
+                    
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-</div>
 
 
+    <p>Total a pagar: Bs.{{total}}</p>
+    <p>Forma de pago: {{pago}}</p>
+    <p>Encargado: {{admin}}</p>
 
-<p>Total a pagar: Bs.{{total}}</p>
+    
+
+    <a href="{% url 'reservation' cliente.NIT 0 %}">Volver</a>
 {% endblock %}

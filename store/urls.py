@@ -50,5 +50,7 @@ urlpatterns=[
     path('reservation_Acpt/<int:cli>/<int:nvv>', views.reservationAcpt, name="reservation_Acpt"),
     path('facturar/<int:res>', views.facturar, name="facturar"),
     path('factura/<int:fac>', views.printfactura, name="factura"),
+    path('eliminarProductoCarrito/<int:cli>/<int:ccp>', views.removeProductoCarrito, name='eliminarProductoCarrito'),
+    path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito')
     
 ]

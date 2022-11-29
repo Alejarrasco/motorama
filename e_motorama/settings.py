@@ -79,8 +79,8 @@ DATABASES = {
         'ENGINE': 'mssql', #No se olviden utilizar la información que utilicen en su compu
         'NAME': "emotorama",
         'USER': "sa",
-        'PASSWORD': "admin",
-        'HOST': 'localhost',
+        'PASSWORD': "123456",
+        'HOST': 'DESKTOP-UD0VPHI\MSSQLSERVER1',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
