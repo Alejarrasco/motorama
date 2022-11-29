@@ -529,6 +529,7 @@ def reservation(request, cli, nvv): #aparece cuando le das a save en carrito
                                                             'ventas': ventas,
                                                             'nvv': nvv})
 
+#cambios
 def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     ventas = venta.objects.filter(productos__cliente=clienteActivo)
