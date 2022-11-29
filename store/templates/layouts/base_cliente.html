@@ -13,13 +13,14 @@
 
 <nav class="navbar container">
     <ul>
+        <a href="{% url 'home' cliente.NIT %}"><img src="{% static 'images/logo.png' %}"  alt="" /></a></li>
         <li><a href="{% url 'home' cliente.NIT %}">Home</a></li>
         <li><a href="{% url 'about' cliente.NIT %}">About</a></li>
         <li><a href="{% url 'products' cliente.NIT %}">Productos</a></li>
         <li><a href="{% url 'cart' cliente.NIT %}">Carrito</a></li>
         <li><a href="{% url 'reservation' cliente.NIT 0 %}">Reservas</a></li>
         <li><a href="{% url 'index' %}">Logout</a></li>
-        <img src="{% static 'images/logo.png' %}"  alt="" />
+        
     </ul>
 </nav>
 
