@@ -540,6 +540,17 @@ def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
                                                             'ventas': ventas,
                                                             'nvv': nvv})
 
+def verCarrito(request, cli, ven):
+    ventaActiva = get_object_or_404(venta, id=ven)
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    productos = carrito_producto.objects.filter(carrito=ventaActiva.productos)
+    return render(request, 'InterfazCliente\spyCarrito.html', {'cliente': clienteActivo,
+                                                                'productos': productos,         
+                                                                'total': ventaActiva.productos.total(),
+                                                                'fecha': ventaActiva.fecha,
+                                                                'pago': ventaActiva.forma_de_pago,
+                                                                'admin': ventaActiva.administrador})
+
 
 ### factura
 def facturar(request, res):

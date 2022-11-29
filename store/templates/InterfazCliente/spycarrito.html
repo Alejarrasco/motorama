@@ -1,0 +1,36 @@
+{% extends 'layouts/base_cliente.html' %}
+
+{% block content %}
+    <h1>Carrito del {{fecha}}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in productos %}
+                <tr>
+                    <td>{{ item.producto.nombre }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.producto.precio }}</td>
+                    <td>{{ item.subtotal }}</td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <p>Total a pagar: Bs.{{total}}</p>
+    <p>Forma de pago: {{pago}}</p>
+    <p>Encargado: {{admin}}</p>
+
+    
+
+    <a href="{% url 'reservation' cliente.NIT 0 %}">Volver</a>
+{% endblock %}
