@@ -8,23 +8,24 @@ from .models import usuario, cliente, factura, venta, producto, categoria, carri
 
 #CORRECIONES, CAMBIE A USUARIOS EN LUGAR DE USUARIO DE LOS FORMS Y CORREGI forms.Forms de algunos
 
-# class CrearUsuarios(forms.Form):  #!No tiene vistas
-#     nombre = forms.CharField(label="Ingrese el nombre del usuario", max_length=50)
-#     apellido = forms.CharField(label="Ingrese el apellido del usuario", max_length=50)
-#     direccion = forms.CharField(label="Ingrese la direccion del usuario", max_length=50)
-#     celular = forms.IntegerField(label="Ingrese la direccion del usuario")
-#     correo = forms.CharField(label="Ingrese el correo del usuario", max_length=50)
-#     password = forms.CharField(label="Ingrese la contraseña del usuario", max_length=50)
+class CrearUsuario(forms.Form):  #!No tiene vistas
+    nombre = forms.CharField(label="Ingrese el nombre del usuario", max_length=50)
+    apellido = forms.CharField(label="Ingrese el apellido del usuario", max_length=50)
+    direccion = forms.CharField(label="Ingrese la direccion del usuario", max_length=50)
+    celular = forms.IntegerField(label="Ingrese el celular del usuario")
+    correo = forms.EmailField(label="Ingrese el correo del usuario", max_length=50)
+    password = forms.CharField(label="Ingrese la contraseña del usuario", max_length=50, widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Confirme la contraseña", max_length=50, widget=forms.PasswordInput)
 
 # class CrearAdministrador(forms.Form):
 #     usuarios_id_usuario_id = forms.IntegerField(label=
 #     "Ingrese el id del usuario de este administrador") #?
 
-class CrearUsuario(ModelForm):  #!No tiene vistas
-    password=forms.CharField(widget=forms.PasswordInput) #ahora es contrasenia el campo
-    class Meta:
-        model = usuario
-        fields=['nombre', 'apellido', 'direccion','celular','correo','password']
+# class CrearUsuario(ModelForm):  #!No tiene vistas
+#     password=forms.CharField(widget=forms.PasswordInput) #ahora es contrasenia el campo
+#     class Meta:
+#         model = usuario
+#         fields=['nombre', 'apellido', 'direccion','celular','correo','password']
 
 class CrearAdministrador(ModelForm):
     class Meta:

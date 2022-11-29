@@ -15,7 +15,7 @@
   </head>
   <body>
       <nav class="container-vr navbar navbar-expand-lg navbar-secondary justify-content-center text-info">
-        <a class="navbar-brand d-lg-none" href="{% url 'homeadmin' 1 %}">
+        <a class="navbar-brand d-lg-none" href="{% url 'homeadmin' admin.id %}">
           <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' %}" style="width: 100px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,27 +23,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item "><a class="nav-link " href="{% url 'leerAdministradores' %}">Administradores</a></li>
+            <li class="nav-item "><a class="nav-link " href="{% url 'leerAdministradores'  admin.id %}">Administradores</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'crearUsuarios' %}">Crear Usuarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'crearUsuarios' admin.pk %}">Crear Usuarios</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'leerUsuarios' %}">Usuarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerUsuarios' admin.pk %}">Usuarios</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'leerReservas' %}">Reservas</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerReservas' admin.pk %}">Reservas</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'leerProductos' %}">Administrar Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerProductos' admin.pk %}">Administrar Productos</a></li>
     
-            <a class="navbar-brand d-none d-lg-block" href="{% url 'homeadmin' 1 %}">
-              <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' %}" style="width: 100px;">
+            <a class="navbar-brand d-none d-lg-block" href="{% url 'homeadmin' admin.id %}">
+              <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' admin.pk %}" style="width: 100px;">
             </a>
 
-            <li class="nav-item"><a class="nav-link" href="{% url 'administrarProductos' %}">Forms Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'administrarProductos' admin.pk %}">Forms Productos</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'aniadir_producto' %}">Añadir Producto</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'aniadir_producto' admin.pk %}">Añadir Producto</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'leerCategorias' %}">Categorias</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerCategorias' admin.pk %}">Categorias</a></li>
     
-            <li class="nav-item"><a class="nav-link" href="{% url 'crearCategorias' %}">Añadir Categorias</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'crearCategorias' admin.pk %}">Añadir Categorias</a></li>
     
             <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Logout</a></li>
           </ul>
