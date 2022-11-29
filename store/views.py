@@ -540,6 +540,7 @@ def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
                                                             'ventas': ventas,
                                                             'nvv': nvv})
 
+
 def verCarrito(request, cli, ven):
     ventaActiva = get_object_or_404(venta, id=ven)
     clienteActivo = get_object_or_404(cliente, NIT=cli)
@@ -573,4 +574,5 @@ def printfactura(request, nro):
     detalle = carrito_producto.objects.filter(carrito=fact.venta_id_venta.productos)
     total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
     return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
+
 
