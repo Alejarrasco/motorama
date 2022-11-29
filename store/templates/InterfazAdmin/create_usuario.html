@@ -14,4 +14,11 @@
 </div>
 
 
+<h1>Crear Usuario Administrador</h1>
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <button>Guardar</button>
+</form>
+
+
 {% endblock %}

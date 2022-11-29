@@ -1,46 +1,71 @@
-{% load static %}
-<img src="{% static 'images/logo.png'%}" alt="" width="200px">
-<div class=""cabecera_factura>
-    <h1>MOTORAMA S.R.L.</h1>
-    <p><i>NIT 123456789</i></p>
-    <p>Factura No. {{ factura.id }}</p>
-</div>
-<div class="datos_empresa">
-    Casa Matriz: C.Heroes del Acre N°1534 <br>
-    Teléfono: 1234567 <br>
-    La Paz - Bolivia <br>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    {% load static %}
+<div class="container d-flex alto-100">
+    
+<div class="row">
+<div class="row">
+    <img src="{% static 'images/logo.png'%}" alt="" width="200px" class="col-12 col-lg-6">
+
+    <h1 class="col-12 col-lg-6 align-middle d-flex justify-content-center "><br><br>MOTORAMA S.R.L.</h1>
+    
+    <p class="col-12 col-lg-6 align-middle"><br><br><b>Factura No. {{ factura.id }}</b></p>
+    <p class="col-12 col-lg-6 d-flex justify-content-center"><i>NIT 123456789</i></p>
+    <p class="col-12 col-lg-6"> </p>
+    <p class="col-12 col-lg-6">Casa Matriz: C.Heroes del Acre N°1534<br>Teléfono: 1234567 <br>
+        La Paz - Bolivia <br></p>
+    
 </div>
 
-Fecha: {{ factura.fecha }} <br>
-Cliente: {{ factura.razon_social }} <br>
-NIT: {{ factura.venta.carrito.cliente.NIT }} <br>
-Vendedor: {{ factura.venta.administrador.usuario.nombre }} {{ factura.venta.administrador.usuario.apellido }} <br>
-
-Detalle de la Factura
-<table>
-    <thead>
-        <tr>
-            <th>Cod Producto</th>
-            <th>Cantidad</th>
-            <th>Concepto</th>
-            <th>Precio Unitario Bs.</th>
-            <th>Monto Bs.</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in detalle %}
-        <tr>
-            <td>{{ item.producto.id }}</td>
-            <td>{{ item.cantidad }}</td>
-            <td>{{ item.producto.nombre }}</td>
-            <td>{{ item.producto.precio }}</td>
-            <!--<td>{{ sad }}</td> Corregir esto-->
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-12">
+        <b>Fecha:</b> {{ factura.fecha }} <br>
+        <b>Cliente:</b> {{ factura.razon_social }} <br>
+        <b>NIT:</b> {{ factura.venta_id_venta.productos.cliente.NIT }} <br>
+        <b>Vendedor:</b> {{ factura.venta_id_venta.administrador.usuarios_id_usuario.nombre }} {{ factura.venta_id_venta.administrador.usuarios_id_usuario.apellido }} <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 bg-gray">
+        Detalle de la Factura
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cod Producto</th>
+                    <th>Cantidad</th>
+                    <th>Concepto</th>
+                    <th>Precio Unitario Bs.</th>
+                    <th>Monto Bs.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in detalle %}
+                <tr>
+                    <td>{{ item.producto.id }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.producto.nombre }}</td>
+                    <td>{{ item.producto.precio }}</td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
 Son: {{ total_letras }} <br>
 Impuesto sobre el valor agregado: {{ factura.IVA }} <br>
 Total: {{ factura.total }} <br>
+</div>
 
-Gracias por su compra, vuelva pronto
+<p class="row">Gracias por su compra, vuelva pronto</p>
+</div>
+</div>
+</body>
+</html>

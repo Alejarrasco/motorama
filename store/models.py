@@ -18,7 +18,7 @@ class cliente(models.Model):
 class administrador(models.Model):
     usuarios_id_usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
     def __str__(self):
-            return self.usuarios_id_usuario.nombre
+            return self.usuarios_id_usuario.nombre + " " + self.usuarios_id_usuario.apellido
 
 class categoria(models.Model):
     nombre = models.CharField(max_length=50)

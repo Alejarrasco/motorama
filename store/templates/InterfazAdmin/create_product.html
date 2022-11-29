@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html'%} {% block content %} {{error}}
 <h1>Añadir producto</h1>
-<form action="/leerProductos/create/" method="POST">
+<form action="" method="POST">
   {% csrf_token %} {{form.as_p}}
   <button>Guardar</button>
 </form>

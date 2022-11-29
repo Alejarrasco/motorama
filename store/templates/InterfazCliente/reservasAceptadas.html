@@ -2,33 +2,22 @@
 
 {% block content %}
     <h1>Reservas</h1>
-    {% if nvv == 1 %}
-        <h3>Su venta se registró satisfactoriamente</h3>
-        <p>Gracias por su compra</p>
-        <p>Se le asignará una fecha para su reserva </p>
-
-    {% elif nvv == 2 %}
-        <h3>Error: el carrito debe tener al menos un producto</h3>
-
-    {% endif %}
-
-    <h2>Sus reservas pendientes</h2>
+    <h2>Sus reservas aceptadas</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Fecha</th>
                 <th>Estado</th>
                 <th>Encargado</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for reserva in ventas %}
-            {% if reserva.estado == 'p' %}
+            {% if reserva.estado == 'a' %}
                 <tr>
                     <td>{{ reserva.fecha }}</td>
                     
-                    <td>Pendiente</td>
+                    <td>Aceptada</td>
                     <td>{{ reserva.administrador }}</td>
                     <td>
                         <a href="{% url 'spyCarrito' cliente.NIT reserva.id %}">Ver</a>
@@ -42,7 +31,7 @@
         {% csrf_token %}
         <button>Reservas pendientes</button>
     </form>
-    
+
     <form action="{% url 'reservation_Acpt' cliente.NIT 0 %}" method="POST">
         {% csrf_token %}
         <button>Reservas aceptadas</button>
