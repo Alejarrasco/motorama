@@ -25,37 +25,47 @@ def index(request):
 
 def registroUsuario(request): #todo: corrige el campo de verificar contrasenia, no entra bien
     if request.method=='POST':
-        nombre=request.POST['Nombre']
-        apellido = request.POST['Apellido']
-        direccion = request.POST['Direccion']
-        celular = request.POST['Celular']
-        nit = request.POST['NIT']
-        correo = request.POST['Correo']
-        password = request.POST['Password']
-        if(request.POST['Password'] == request.POST['Password2']):
-                getCli=cliente.objects.all()
-                if getCli:
-                    nitExist=cliente.objects.filter(NIT=nit)
-                    if(nitExist):
-                        messages.success(request,'El NIT ' +request.POST['NIT']+ ' ya esta registrado para un Cliente')
-                        return render(request,'login/signUp.html')
-                    else:
-                        u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
-                        u.save()
-                        cliente.objects.create(NIT=nit,id_usuario=u)
-                        carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
-                        messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
-                        return render(request,'login/signUp.html')   
+        try:
+            userEmail=usuario.objects.filter(correo=request.POST['Correo'])
+            if userEmail:
+                    messages.success(request, 'El correo ya existe, intente otro!')
+                    return render(request, 'login/signUp.html')
+            else:
+                nombre=request.POST['Nombre']
+                apellido = request.POST['Apellido']
+                direccion = request.POST['Direccion']
+                celular = request.POST['Celular']
+                nit = request.POST['NIT']
+                correo = request.POST['Correo']
+                password = request.POST['Password']
+                if(request.POST['Password'] == request.POST['Password2']):
+                        getCli=cliente.objects.all()
+                        if getCli:
+                            nitExist=cliente.objects.filter(NIT=nit)
+                            if(nitExist):
+                                messages.success(request,'El NIT ' +request.POST['NIT']+ ' ya esta registrado para un Cliente')
+                                return render(request,'login/signUp.html')
+                            else:
+                                u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
+                                u.save()
+                                cliente.objects.create(NIT=nit,id_usuario=u)
+                                carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
+                                messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
+                                return render(request,'login/signUp.html')   
+                        else:
+                            u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
+                            u.save()
+                            cliente.objects.create(NIT=nit,id_usuario=u)
+                            carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
+                            
+                            messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
+                            return render(request,'login/signUp.html')    
                 else:
-                    u = usuario(nombre=nombre,apellido=apellido,direccion=direccion,celular=celular,correo=correo,password=password)
-                    u.save()
-                    cliente.objects.create(NIT=nit,id_usuario=u)
-                    carrito.objects.create(cliente=cliente.objects.get(NIT=nit), activo=True)    
-                    messages.success(request,'El usuario '+request.POST['Nombre']+' se ha registrado exitosamente')
-                    return render(request,'login/signUp.html')    
-        else:
-            messages.success(request, 'Las contraseñas no coinciden, vuelve a intentarlo')
-            return render(request,'login/signUp.html')
+                    messages.success(request, 'Las contraseñas no coinciden, vuelve a intentarlo')
+                    return render(request,'login/signUp.html')
+        except ValueError:
+            messages.success(request, 'Porfavor, ingrese datos correctos')
+            return render(request, 'InterfazAdmin/create_usuario.html')
     else:
         return render(request,'login/signUp.html')
 
@@ -195,10 +205,9 @@ def CrearProductos(request, aid):
 
 def administrarProducto(request, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
-    productosFormset=modelformset_factory(producto, form=CrearProducto)
+    productosFormset=modelformset_factory(producto, form=CrearProducto, can_delete=True)
     if request.method == 'POST':
         form = productosFormset(request.POST)
-        print(request.POST)
         #print(request.POST)
         form.save()
         return redirect('leerProductos', aid=adminActivo.pk)
@@ -284,10 +293,15 @@ def leerUsuarios(request, aid):
     #projects = list(Project.objects.values()) #lista de proyectos en query set
     #productos=producto.objects.all() 
     adminActivo = get_object_or_404(administrador, id=aid)
-    usuarios = usuario.objects.all()
+    usuarios = usuario.objects.all() #all the users
+    admins = administrador.objects.all()
+    clientes = cliente.objects.all()
+
     try:
         return render(request,'InterfazAdmin/leerUsuarios.html',{
             'usuarios':usuarios,
+            'administradores' : admins,
+            'clientes' : clientes,
             'admin': adminActivo,
         })
     except:
@@ -512,12 +526,22 @@ def confirmarVenta(request, cli):
 def reservation(request, cli, nvv): #aparece cuando le das a save en carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     ventas = venta.objects.filter(productos__cliente=clienteActivo)
-    for i in ventas:
-        print(i.fecha)
-        print(i.administrador)
     return render(request, 'InterfazCliente\\reserva.html', {'cliente': clienteActivo,
                                                             'ventas': ventas,
                                                             'nvv': nvv})
+
+
+def detalleReservaCli(request, cli, carrito_id):
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    productos=carrito_producto.objects.filter(carrito=carrito_id)
+    total = carrito.objects.get(id=carrito_id).total()
+    return render(request, 'InterfazCliente\\detalleReservaCli.html', {
+        'carrito': carrito_id,
+        'detalle' : productos,
+        'total' : total,
+        'cliente': clienteActivo,
+        })
+
 
 def reservationAcpt(request, cli, nvv): #aparece cuando le das a save en carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)

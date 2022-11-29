@@ -14,6 +14,8 @@ class usuario(models.Model):
 class cliente(models.Model):
     NIT = models.CharField(max_length=15, primary_key=True)
     id_usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    def __str__(self): #to string
+        return "id:" +str(self.pk) + "  NIT:" +self.NIT
 
 class administrador(models.Model):
     usuarios_id_usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)

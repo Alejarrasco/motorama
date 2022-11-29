@@ -1,0 +1,16 @@
+{% extends 'layouts/base_cliente.html'%} 
+{% block content %}
+Detalle del carrito {{carrito}}: <br>
+{% for item in detalle %}
+<div>
+    <h3>{{item.producto.nombre}}</h3>
+    <p>Bs.{{item.producto.precio}} c/u     cant.{{item.cantidad}}</p>
+    <p>Subtotal. {{ item.subtotal }}</p>
+    
+</div>
+{% endfor %}
+
+
+
+<p>Total a pagar: Bs.{{total}}</p>
+{% endblock %}

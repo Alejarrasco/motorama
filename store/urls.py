@@ -47,6 +47,7 @@ urlpatterns=[
     path('cart/<int:cli>', views.cart, name="cart"),
     path('confirmSale/<int:cli>/', views.confirmarVenta, name="confirmSale"),
     path('reservation/<int:cli>/<int:nvv>', views.reservation, name="reservation"),
+    path('leerDetalleReservaCli/<int:cli>/<int:carrito_id>', views.detalleReservaCli, name="detalleReservaCli"), 
     path('reservation_Acpt/<int:cli>/<int:nvv>', views.reservationAcpt, name="reservation_Acpt"),
     path('facturar/<int:res>', views.facturar, name="facturar"),
     path('factura/<int:fac>', views.printfactura, name="factura"),

@@ -1,13 +1,37 @@
 {% extends 'layouts/base.html'%} {% block content %}
 <h1>Usuarios</h1>
+------------------------------------------------------------------------------------------
+{{error}} 
+<h1>Clientes</h1>
+{% for user in usuarios %}
+  {% for cliente in clientes %}
+    {% if user.id == cliente.id_usuario_id %}
+      <!--Llaves iguales-->
+      <article class="card">
+        <p>Nombre: {{user.nombre}}</p>
+        <p>Apellido: {{user.apellido}}</p>
+        <p>Direccion: {{user.direccion}}</p>
+        <p>Correo: {{user.correo}}</p>
+      </article>
+      {% endif %}
+  {% endfor %} 
+{% endfor %} 
 
-{{error}} {% for user in usuarios %}
-<!--Llaves iguales-->
-<article class="card">
-  <p>Nombre: {{user.nombre}}</p>
-  <p>Apellido: {{user.apellido}}</p>
-  <p>Direccion: {{user.direccion}}</p>
-  <p>Correo: {{user.correo}}</p>
-</article>
 
-{% endfor %} {% endblock %}
+<h1>Admins</h1>
+{% for user in usuarios %}
+  {% for administrador in administradores %}
+    {% if user.id == administrador.usuarios_id_usuario_id %}
+    <!--Llaves iguales-->
+    <article class="card">
+      <p>Nombre: {{user.nombre}}</p>
+      <p>Apellido: {{user.apellido}}</p>
+      <p>Direccion: {{user.direccion}}</p>
+      <p>Correo: {{user.correo}}</p>
+    </article>
+    {% endif %}
+  {% endfor %} 
+{% endfor %} 
+
+
+{% endblock %}

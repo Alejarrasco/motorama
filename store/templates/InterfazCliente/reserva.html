@@ -19,6 +19,7 @@
                 <th>Fecha</th>
                 <th>Estado</th>
                 <th>Encargado</th>
+                <th>Detalle</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,17 @@
                     
                     <td>Pendiente</td>
                     <td>{{ reserva.administrador }}</td>
+                    <td>
+                        <form
+                          action="{% url 'detalleReservaCli' cliente.NIT reserva.productos %}"
+                          method="POST"
+                        >
+                          {% csrf_token %}
+                          <button class="btn-mas">
+                            Detalle del carrito:{{reserva.productos}}
+                          </button>
+                        </form>
+                      </td>
                 </tr>
             {% endif %}
             {% endfor %}
