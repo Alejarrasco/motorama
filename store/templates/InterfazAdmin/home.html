@@ -1,46 +1,39 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block content %}
-<div class="container d-flex align-items-center justify-content-center vh-100">
+<div class="container d-flex align-self-center justify-content-center vh-100">
     <div class="row">
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 p-2">
             <div class="row">
                 <div class="col-12 col-Lg-8 p-2">
-                    <article class="card h-100 bg-success">
+                    <article class="card h-100 bg-primary">
                         <div class="card-body">
                             <div class="d-flex mb-3">
-                                <h1>Home</h1>
+                                <h1>Hola, {{admin}}</h1>
                             </div>
                         </div>
                     </article>
                     
                 </div>
                 <div class="col-12 col-Lg-8 p-2">
-                    <article class="card h-100 bg-warning">
+                    <article class="card h-100 bg-secondary">
                         <div class="card-body">
                             <div class="d-flex mb-3">
-                                <h2>Hola, {{admin}}</h2>
-                                <p>Here you can manage the store</p>
+                                <h4>Aquí podras administrar la tienda</h4>
                             </div>
                         </div>
                     </article>
                 </div>
             </div>  
         </div>
-        <div class="col-12 col-lg-9 p-2">
-            <article class="card h-100 bg-secondary">
-                <div class="card-body">
-                    <div class="d-flex mb-3">
-                        <img src="{% static 'images/auto1.jpg' %}" alt="" class="border border-dark border-4 rounded-circle">
-                        <div class="ps-3">
-                            <h1>Home</h1>
-                        </div>
-                    </div>
+        <div class="col-12 col-lg-9 p-3 ">
+            <article class="card text-bg-dark bg-secondary align-items-center">
+                <img src="{% static 'images/auto-azul.png' %}"  class="card-img" style="width: 100%; height: 560px;">
+                <div class="card-img-overlay">
+                    <h1 class="display-4">Bienvenido a</h1>
                 </div>
             </article>
         </div>
     </div>
 </div>
-    
-
 {% endblock %}
