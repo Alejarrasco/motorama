@@ -1,13 +1,19 @@
 {% extends 'layouts/base.html'%} {% block content %}
-<h1>Usuarios</h1>
+
+<h1 class="text-center">Usuarios</h1>
 
 {{error}} {% for user in usuarios %}
 <!--Llaves iguales-->
-<article class="card">
-  <p>Nombre: {{user.nombre}}</p>
-  <p>Apellido: {{user.apellido}}</p>
-  <p>Direccion: {{user.direccion}}</p>
-  <p>Correo: {{user.correo}}</p>
-</article>
+<div class="container align-self-center justify-content-center p-2">
+  <article class="card bg-info">
+    <div class="card-body">
+      <h2 class="card-title text-white">{{user.id}} {{user.nombre}} {{user.apellido}}</h2>
+      <p class="card-text text-center text-white">Nombre: {{user.nombre}}</p>
+      <p class="card-text text-center text-white">Apellido: {{user.apellido}}</p>
+      <p class="card-text text-center text-white">Direccion: {{user.direccion}}</p>
+      <p class="card-text text-center text-white">Correo: {{user.correo}}</p>
+    </div>
+  </article>
+</div>
 
 {% endfor %} {% endblock %}

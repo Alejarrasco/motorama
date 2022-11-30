@@ -1,4 +1,5 @@
 {% load static %}
+<!--oficial -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,60 +7,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administrador GUI</title>
-    <link rel="stylesheet" href="{% static 'styles/administrador.css'%}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,600;0,900;1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/styles/sass/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"> </script>
+
   </head>
   <body>
-    <section class="container">
-      <div>
-        <a href="{% url 'homeadmin' admin.id %}"><img src="{% static 'images/logo.png' %}" width="200" alt="" /></a>
-      </div>
-      <ul class="menu">
+      <nav class="container-vr navbar navbar-expand-lg navbar-secondary justify-content-center text-info">
+        <a class="navbar-brand d-lg-none" href="{% url 'homeadmin' admin.id %}">
+          <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' %}" style="width: 100px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item "><a class="nav-link " href="{% url 'leerAdministradores'  admin.id %}">Administradores</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'crearUsuarios' admin.pk %}">Crear Usuarios</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerUsuarios' admin.pk %}">Usuarios</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerReservas' admin.pk %}">Reservas</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerProductos' admin.pk %}">Administrar Productos</a></li>
+    
+            <a class="navbar-brand d-none d-lg-block" href="{% url 'homeadmin' admin.id %}">
+              <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' admin.pk %}" style="width: 100px;">
+            </a>
 
-        <li>
-          <a href="{% url 'leerAdministradores' admin.id %}">Administradores</a>
-        </li>
-
-        <li>
-          <a href="{% url 'crearUsuarios' admin.pk %}">Crear Usuarios</a>
-        </li>
-
-        <li>
-          <a href="{% url 'leerUsuarios' admin.pk %}">Usuarios</a>
-        </li>
-
-        <li>
-          <a href="{% url 'leerReservas' admin.pk %}">Reservas</a>
-        </li>
-
-        <li>
-          <a href="{% url 'leerProductos' admin.pk %}">Administrar Productos</a>
-        </li>
-
-        <li>
-          <a href="{% url 'administrarProductos' admin.pk %}">Forms Productos</a>
-        </li>
-
-        <li>
-          <a href="{% url 'aniadir_producto' admin.pk %}">Añadir Producto</a>
-        </li>
-
-        <li>
-          <a href="{% url 'leerCategorias' admin.pk %}">Categorias</a>
-        </li>
-
-        <li>
-          <a href="{% url 'crearCategorias' admin.pk %}">Añadir Categorias</a>
-        </li>
-
-        <li>
-          <a href="{% url 'index' %}">Logout</a>
-        </li>
-      </ul>
-    </section>
-    <main class="container">
+            <li class="nav-item"><a class="nav-link" href="{% url 'administrarProductos' admin.pk %}">Forms Productos</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'aniadir_producto' admin.pk %}">Añadir Producto</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'leerCategorias' admin.pk %}">Categorias</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'crearCategorias' admin.pk %}">Añadir Categorias</a></li>
+    
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
       {% block content %}
       <!--Aqui podra tener contenido-->
       {% endblock %}
-    </main>
+    
   </body>
 </html>

@@ -1,29 +1,38 @@
 body{
-    background-color: #888787;
+    background: 
+    linear-gradient(40deg,
+    rgb(129, 4, 4)10%,
+    rgb(156, 76, 76),
+    rgb(83, 82, 82));
     margin: 0;
 }
 nav{
     float: top;
-    background-color: #4e4e4e;
-    
+    background: 
+    linear-gradient(to right,
+    rgb(59, 58, 58),
+    rgb(128, 128, 128),
+    rgb(103, 103, 103));
 }
 nav ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #4e4e4e;
+    background: 
+    linear-gradient(to right,
+    rgb(59, 58, 58),
+    rgb(128, 128, 128),
+    rgb(103, 103, 103));
     display: flex;
 }
 nav ul li{
-    
     list-style: none;
     margin-left: 30px;
     margin-right: 30px;
     padding: 30px 0;
     float: bottom;
 }
-
 nav ul li a{
     text-decoration:none;
     font-weight: 600;
@@ -43,6 +52,8 @@ nav ul li a{
 }
 nav ul li a:hover{
     color:rgb(255, 255, 255);
+    background-color: coral;
+    border-color: coral;  
 }
 
 .container{
@@ -73,10 +84,30 @@ nav ul li a:hover{
 
 }
 
+.widecard{
+    background-color: #dfdfdf;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 1000px;
+    height: 300px;
+    float: left;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-color: #8b0202;
+    border-width: 3px;
+    border-style: solid;
+    border-radius:40px;
+    position: relative;
+    margin-right: 100%;
+}
+
 .container h1{
     font-size: 40px;
     font-weight: 600;
-    color: #582121;
+    color: #ffffff;
     text-align: center;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -102,4 +133,14 @@ nav ul li a:hover{
   
 .container tr:nth-child(even) {
     background-color: #dddddd;
+  }
+
+  img {
+    width: 180px;
+    height: auto;
+    margin: auto;
+    border-radius: 10px;
+    position: fixed;
+    top: 8%;
+    right: 0%;
   }

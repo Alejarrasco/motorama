@@ -21,7 +21,15 @@
                     <td>{{ item.producto.precio }}</td>
                     <td>{{ item.subtotal }}</td>
                     <td>
-                        (._.)
+                        <form
+                            action="{% url 'eliminarProductoCarrito' cliente.NIT item.id %}"
+                            method="POST"
+                        >
+                            {% csrf_token %}
+                            <button class="btn-mas">
+                            Eliminar del carrito
+                            </button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -29,9 +37,11 @@
     </table>
 
 
-    <p>Total a pagar: Bs.{{total}}</p>
+    <div class="widecard">
+        <p>Total a pagar: Bs.{{total}}</p>
 
     
 
     <a href="{% url 'confirmSale' cliente.NIT %}">Comprar</a>
+    </div>
 {% endblock %}

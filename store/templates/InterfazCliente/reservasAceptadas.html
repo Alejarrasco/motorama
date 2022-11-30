@@ -19,6 +19,9 @@
                     
                     <td>Aceptada</td>
                     <td>{{ reserva.administrador }}</td>
+                    <td>
+                        <a href="{% url 'spyCarrito' cliente.NIT reserva.id %}">Ver</a>
+                    </td>
                 </tr>
             {% endif %}
             {% endfor %}

@@ -55,3 +55,14 @@ body {
     text-align: center;
     display: block;
   }
+  .container table{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-collapse: collapse;
+    border: 1px solid #582121;
+    border-radius: 10px;
+    background-color: #c2c2c2;
+
+}
