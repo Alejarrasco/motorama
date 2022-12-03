@@ -372,8 +372,17 @@ def leerReservasAceptadas(request, aid): #idea, haz que cuando estes en la pesta
             'admin': adminActivo
         })
 
+def leerReservasFacturadas(request, aid): #idea, haz que cuando estes en la pestania reserva puedas presionar detalle para asi ver todos los productos
+    adminActivo = get_object_or_404(administrador, id=aid)
+    ventas = venta.objects.filter(estado='f', administrador_id=adminActivo.pk).order_by('-estado')
+    #print(ventas)
+    return render(request,'InterfazAdmin/reservasFact.html',{
+            'reservas' : ventas,
+            'admin': adminActivo
+        })
 
-def aceptarReservas(request, venta_id, aid):
+
+def aceptarReservas(request, venta_id, aid): #todo: Agrega una condicional para ver si hay penalizaciones
     adminActivo = get_object_or_404(administrador, id=aid)
     ventas=venta.objects.get(id=venta_id)
     ventas.estado='a'
@@ -388,6 +397,23 @@ def rechazarReservas(request, venta_id, aid):
     ventas.estado='r'
     ventas.save()
     return redirect('leerReservas', aid=adminActivo.pk)
+
+### factura
+def facturar(request, res):
+    ventaActiva = get_object_or_404(venta, id=res)
+    ventaActiva.estado='f' #facturado
+    ventaActiva.save()
+    fecha = datetime.now()
+    forma_de_pago = ventaActiva.forma_de_pago
+    razon_social = ventaActiva.productos.cliente.id_usuario.apellido
+    telefono = ventaActiva.productos.cliente.id_usuario.celular
+    correo = ventaActiva.productos.cliente.id_usuario.correo
+    subtotal = ventaActiva.productos.total()
+    iva = float(subtotal) * 0.13
+    total = float(subtotal) + float(iva)
+    f = factura(fecha=fecha, forma_de_pago=forma_de_pago, razon_social=razon_social, telefono=telefono, correo=correo, subtotal=subtotal, IVA=iva, total=total, venta_id_venta=ventaActiva)
+    f.save()
+    return printfactura(request, f.id)
 
 def detalleReserva(request, carrito_id, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
@@ -405,13 +431,16 @@ def detalleReserva(request, carrito_id, aid):
         'admin': adminActivo
     })
 
+def detalleFactura(request, res):
+    facturaDet = factura.objects.filter(venta_id_venta_id=res).values('id')
+    return printfactura(request, facturaDet[0]['id'])
 
-def detalleReservaAcc(request, carrito_id, aid): #esto no se aun si quitar
-    adminActivo = get_object_or_404(administrador, id=aid)
-    productos=carrito_producto.objects.filter(carrito=carrito_id)
-    for item in productos:
-        print(f"{item.producto.nombre} compro la cantidad de {item.cantidad}")
-    return redirect('reservasAceptadas', aid=adminActivo.pk)
+def printfactura(request, nro):
+    fact = get_object_or_404(factura, id=nro)
+    detalle = carrito_producto.objects.filter(carrito=fact.venta_id_venta.productos)
+    total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
+    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
+
 
 #           ALE
 
@@ -592,26 +621,5 @@ def verCarrito(request, cli, ven):
                                                                 'admin': ventaActiva.administrador})
 
 
-### factura
-def facturar(request, res):
-    ventaActiva = get_object_or_404(venta, id=res)
-    fecha = datetime.now()
-    forma_de_pago = ventaActiva.forma_de_pago
-    razon_social = ventaActiva.productos.cliente.id_usuario.apellido
-    telefono = ventaActiva.productos.cliente.id_usuario.celular
-    correo = ventaActiva.productos.cliente.id_usuario.correo
-    subtotal = ventaActiva.productos.total()
-    iva = float(subtotal) * 0.13
-    total = float(subtotal) + float(iva)
-    f = factura(fecha=fecha, forma_de_pago=forma_de_pago, razon_social=razon_social, telefono=telefono, correo=correo, subtotal=subtotal, IVA=iva, total=total, venta_id_venta=ventaActiva)
-    f.save()
-    return printfactura(request, f.id)
-
-
-def printfactura(request, nro):
-    fact = get_object_or_404(factura, id=nro)
-    detalle = carrito_producto.objects.filter(carrito=fact.venta_id_venta.productos)
-    total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
-    return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
 
 
