@@ -51,6 +51,8 @@ urlpatterns=[
     path('facturar/<int:res>', views.facturar, name="facturar"),
     path('factura/<int:fac>', views.printfactura, name="factura"),
     path('eliminarProductoCarrito/<int:cli>/<int:ccp>', views.removeProductoCarrito, name='eliminarProductoCarrito'),
-    path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito')
+    path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito'),
+    path('pagotarjeta/<int:cli>', views.pagotarjeta, name='pagotarjeta'),
+    path('pagoQR/<int:cli>', views.pagoQR, name='pagoQR'),
     
 ]

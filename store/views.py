@@ -2,7 +2,7 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import producto, cliente, carrito, usuario, carrito_producto, venta, administrador, factura
-from .forms import AddToCartForm
+from .forms import AddToCartForm, ventaConTarjeta, ventaConQR
 from .utils import numero_to_letras
 from django.contrib import messages
 
@@ -492,15 +492,6 @@ def confirmarVenta(request, cli):
     carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
     productos = carrito_producto.objects.filter(carrito=carritoActivo)
 
-    #Seleccionar un administrador al azar
-    admins = list(administrador.objects.filter().values('pk'))
-    ads=[]
-    for admin in admins:
-        for i in admin.values():
-            print(i)
-            ads.append(i)
-    
-
 
     if request.method == 'GET':
         if not productos.exists():
@@ -510,14 +501,62 @@ def confirmarVenta(request, cli):
                                                                         'total': carritoActivo.total(),
                                                                         'cliente': clienteActivo})
     else:
+        if request.POST['pago'] == 'tarjeta':
+            return redirect('pagotarjeta', cli=clienteActivo.NIT)
+        else:
+            return redirect('pagoQR', cli=clienteActivo.NIT)
+        
+def pagotarjeta(request, cli):
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
+
+    #Seleccionar un administrador al azar
+    admins = list(administrador.objects.filter().values('pk'))
+    ads=[]
+    for admin in admins:
+        for i in admin.values():
+            print(i)
+            ads.append(i)
+
+
+    if request.method == 'GET':
+        return render(request, 'InterfazCliente\pagotarjeta.html', {'cliente': clienteActivo,
+                                                                    'form': ventaConTarjeta()})
+    else:
+
         carritoActivo.activo = False
         carritoActivo.save()
         carrito.objects.create(cliente=carritoActivo.cliente, activo=True)
 
-
-        venta.objects.create(fecha=datetime.now(), administrador=administrador.objects.get(id=np.random.choice(ads)), productos=carritoActivo, forma_de_pago=request.POST['pago'])
+        venta.objects.create(fecha=datetime.now(), administrador=administrador.objects.get(id=np.random.choice(ads)), productos=carritoActivo, forma_de_pago='Tarjeta')
 
         return redirect('reservation', cli=carritoActivo.cliente.NIT, nvv=1)
+
+
+def pagoQR(request, cli):
+    clienteActivo = get_object_or_404(cliente, NIT=cli)
+    carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
+
+    #Seleccionar un administrador al azar
+    admins = list(administrador.objects.filter().values('pk'))
+    ads=[]
+    for admin in admins:
+        for i in admin.values():
+            print(i)
+            ads.append(i)
+
+
+    if request.method == 'GET':
+        return render(request, 'InterfazCliente\pagoqr.html', {'cliente': clienteActivo,
+                                                                    'form': ventaConQR()})
+    else:
+        carritoActivo.activo = False
+        carritoActivo.save()
+        carrito.objects.create(cliente=carritoActivo.cliente, activo=True)
+
+        venta.objects.create(fecha=datetime.now(), administrador=administrador.objects.get(id=np.random.choice(ads)), productos=carritoActivo, forma_de_pago='Transferencia QR')
+        return redirect('reservation', cli=carritoActivo.cliente.NIT, nvv=1)
+
 
 def reservation(request, cli, nvv): #aparece cuando le das a save en carrito
     clienteActivo = get_object_or_404(cliente, NIT=cli)
