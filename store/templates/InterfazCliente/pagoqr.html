@@ -1,0 +1,24 @@
+{% extends 'layouts/base_cliente.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1>Pago con tarjeta</h1>
+
+<img src="{% static 'images/pagoconqr.png' %}" alt="">
+
+<form method="POST">
+    
+    {% csrf_token %}
+    <p>Realice el pago mediante el código Qr, a continaución ingrese aquí el número de transferencia</p>
+    {{form.as_p}}
+
+    <button>
+        Aceptar
+    </button>
+    <button>
+        Cancelar
+    </button>
+</form>
+
+{% endblock %}
