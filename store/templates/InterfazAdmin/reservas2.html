@@ -1,20 +1,7 @@
 {% extends 'layouts/base.html'%} {% load static %} {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reservas</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'styles/tabla.css'%}"
-      type="text/css"
-    />
-  </head>
-  <body>
-    <div id="main-container">
-      <table>
+
+    <div class="container">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Aceptar/Rechazar</th>
@@ -29,7 +16,7 @@
           <td>
             <form action="{% url 'aceptarReserva' reserva.id admin.pk %}" method="POST">
               {% csrf_token %}
-              <button class="btn-mas">Aceptar</button>
+              <button class="btn btn-info">Aceptar</button>
             </form>
             <p>
               <a href="#popup">
@@ -46,7 +33,7 @@
                     method="POST"
                   >
                     {% csrf_token %}
-                    <button class="btn-mas">Si</button>
+                    <button class="btn btn-info">Si</button>
                   </form>
 
                   <form action="{% url 'leerReservas' admin.pk %}">
@@ -63,7 +50,7 @@
               method="POST"
             >
               {% csrf_token %}
-              <button class="btn-mas">
+              <button class="btn btn-info">
                 Detalle del carrito:{{reserva.productos}}
               </button>
             </form>
@@ -74,45 +61,41 @@
         {% endif %} {% endfor %}
       </table>
       <!--fin logica-->
-
-
-
-
     </div>
-    <form action="{% url 'leerReservas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn-mas">En espera</button>
-    </form>
 
-    <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn-mas">Confirmados</button>
-    </form>
-
-    <div id="combo-box1">
-      <select name="Productos reservados" id="Productos_reservados">
-        <option value="Productos reservados">Reservas en espera</option>
-        <option value="Productos recogidos">Reservas aceptadas</option>
-      </select>
+    
+    <div class="container d-flex justify-content-between vh-100">
+      <div class="row">
+        <div class="col-lg-5 p-2">
+          <form action="{% url 'leerReservas' admin.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-info">En espera</button>
+          </form>
+          <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-info">Confirmados</button>
+          </form>
+        </div>
+        <div class="col-lg-7 p-2">
+          <select class="form-select form-select-sm" name="Productos reservados" id="Productos_reservados">
+            <option selected>Estado Reserva</option>
+            <option value="Productos reservados">Reservas en espera</option>
+            <option value="Productos recogidos">Reservas aceptadas</option>
+          </select>
+          <select class="form-select form-select-sm" name="Tipo_de_producto" id="Tipo_de_producto">
+            <option selected>Tipo de Producto</option>
+            <option value="Tipo1">Tipo1</option>
+            <option value="Tipo2">Tipo2</option>
+            <option value="Tipo3">Tipo3</option>
+            <option value="Tipo4">Tipo4</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div id="combo">
-      <select name="Tipo_de_producto" id="Tipo_de_producto">
-        <option value="Tipo">Tipo de Producto</option>
-        <option value="Tipo1">Tipo1</option>
-        <option value="Tipo2">Tipo2</option>
-        <option value="Tipo3">Tipo3</option>
-        <option value="Tipo4">Tipo4</option>
-      </select>
-    </div>
-    <button class="boton1">
+    <!--<button class="btn btn-info">
       <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
       </span>
       <span class="button-text">regresar</span>
-    </button>
-    <div>
-      <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
-    </div>
-  </body>
-</html>
+    </button>-->
 {% endblock %}

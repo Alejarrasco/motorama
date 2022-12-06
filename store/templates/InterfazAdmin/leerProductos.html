@@ -1,16 +1,22 @@
 {% extends 'layouts/base.html'%} {% block content %}
-<h1>Productos</h1>
+<h1 class="text-center">Productos</h1>
 
 {{error}} {% for product in productos %} {% for category in categorias %}
 <!--Llaves iguales-->
 {% if category.id == product.categoria_id_categoria_id %}
+<div class="container align-self-center justify-content-center p-2">
+  <article class="card">
+    <div class="card-body">
+      <li>
+        <a href="{% url 'product_detail' product.id admin.id %}">
+          <strong>{{product.nombre}}</strong>
+        </a>
+        <p>Descripcion: {{product.descripcion}}</p>
+        <p>Cantidad: {{product.stock}}</p>
+        <p>Precio: {{product.precio}}</p>
+      </li>
+    </div>
+  </article>
+</div>
 
-<li>
-  <a href="{% url 'product_detail' product.id admin.id %}">
-    <strong>{{product.nombre}}</strong>
-  </a>
-  <p>Descripcion: {{product.descripcion}}</p>
-  <p>Cantidad: {{product.stock}}</p>
-  <p>Precio: {{product.precio}}</p>
-</li>
 {% endif %} {% endfor %} {% endfor %} {% endblock %}
