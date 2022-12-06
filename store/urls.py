@@ -26,8 +26,9 @@ urlpatterns=[
     path('leerReservas/<int:venta_id>/aceptar/<int:aid>', views.aceptarReservas, name="aceptarReserva"), 
     path('leerReservas/<int:venta_id>/rechazar/<int:aid>', views.rechazarReservas, name="rechazarReserva"), 
     path('leerReservasAceptadas/<int:aid>', views.leerReservasAceptadas, name="reservasAceptadas"), 
+    path('leerReservasFacturadas/<int:aid>', views.leerReservasFacturadas, name="reservasFacturadas"), 
     path('leerDetalleReserva/<int:carrito_id>/<int:aid>', views.detalleReserva, name="detalleReserva"), 
-    path('leerDetalleReservaAcc/<int:carrito_id>/<int:aid>', views.detalleReservaAcc, name="detalleReservaAcc"), 
+    path('leerDetalleFactura/<int:res>', views.detalleFactura, name="detalleFactura"), 
     #path('leerPenalizaciones/', views.leerPenalizaciones, name="leerPenalizaciones"),
     path('leerUsuarios/<int:aid>', views.leerUsuarios, name="leerUsuarios"),
     path('leerUsuarios/create/<int:aid>', views.CrearUsuarios, name="crearUsuarios"),
@@ -51,6 +52,8 @@ urlpatterns=[
     path('facturar/<int:res>', views.facturar, name="facturar"),
     path('factura/<int:fac>', views.printfactura, name="factura"),
     path('eliminarProductoCarrito/<int:cli>/<int:ccp>', views.removeProductoCarrito, name='eliminarProductoCarrito'),
-    path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito')
+    path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito'),
+    path('pagotarjeta/<int:cli>', views.pagotarjeta, name='pagotarjeta'),
+    path('pagoQR/<int:cli>', views.pagoQR, name='pagoQR'),
     
 ]

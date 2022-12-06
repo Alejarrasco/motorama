@@ -6,42 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reservas</title>
-    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'styles/tabla.css'%}"
+      type="text/css"
+    />
   </head>
   <body>
     <div id="main-container">
       <table>
         <thead>
           <tr>
-            <th>Facturar</th>
             <th>Fecha</th>
             <th>Carrito</th>
             <th>Forma de pago</th>
             <th>Cliente</th>
+            <th>Detalle Factura</th>
+            
           </tr>
         </thead>
-        {% for reserva in reservas %}
+        {% for reserva in reservas %} {%if reserva.estado == 'f' %}
         <tr>
-          <td>
-            <form action="{% url 'facturar' reserva.pk %}" method="POST">
-              {% csrf_token %}
-              <button class="btn-mas">Facturar</button>
-            </form>
-          </td>
           <td>{{reserva.fecha}}</td>
           <td>
-            <form action="{% url 'detalleReserva' reserva.productos admin.pk %}" method="POST">
+            <form
+              action="{% url 'detalleReserva' reserva.productos admin.pk %}"
+              method="POST"
+            >
               {% csrf_token %}
               <button class="btn-mas">
                 Detalle del carrito:{{reserva.productos}}
               </button>
             </form>
-            </form>
           </td>
           <td>{{reserva.forma_de_pago}}</td>
           <td>{{reserva.productos.cliente.id_usuario.apellido}}</td>
+          <td>
+            <form
+              action="{% url 'detalleFactura' reserva.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <button class="btn-mas">
+                Ver factura
+              </button>
+            </form>
+          </td>
         </tr>
-        {% endfor %} 
+        {% endif %} {% endfor %}
       </table>
       <!--fin logica-->
 
@@ -60,9 +72,9 @@
     </form>
 
     <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn-mas">Facturados</button>
-    </form>
+        {% csrf_token %}
+        <button class="btn-mas">Facturados</button>
+      </form>
     <!-- <div id="combo-box1">
       <select name="Productos reservados" id="Productos_reservados">
         <option value="Productos reservados">Reservas en espera</option>

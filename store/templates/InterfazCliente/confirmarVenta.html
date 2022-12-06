@@ -29,17 +29,17 @@
         <fieldset>
             <legend>Seleccione su forma de pago:</legend>
             <div class="radiobox">
-                <input type="radio" name="pago" value="efectivo" id="pago1" checked>
-                <label for="pago1">Efectivo</label>
-                <input type="radio" name="pago" value="transferencia" id="pago2">
-                <label for="pago2">Transferencia</label>
+                <input type="radio" name="pago" value="tarjeta" id="pago1" checked>
+                <label for="pago1">Tarjeta</label>
+                <input type="radio" name="pago" value="transferencia QR" id="pago2">
+                <label for="pago2">Transferencia con QR</label>
             </div>
         </fieldset>
 
         <!--{% csrf_token %}
         {{form.as_p}}<br>-->
         <button>
-            save
+            Aceptar
         </button>
     </form>
 

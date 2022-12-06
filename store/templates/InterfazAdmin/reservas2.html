@@ -89,6 +89,10 @@
       <button class="btn-mas">Confirmados</button>
     </form>
 
+    <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="btn-mas">Facturados</button>
+    </form>
     <!-- <div id="combo-box1">
       <select name="Productos reservados" id="Productos_reservados">
         <option value="Productos reservados">Reservas en espera</option>
