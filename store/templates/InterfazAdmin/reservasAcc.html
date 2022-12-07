@@ -1,7 +1,16 @@
 {% extends 'layouts/base.html'%} {% load static %} {% block content %}
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas</title>
+    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
+  </head>
+  <body>
     <div id="main-container">
-      <table class="table table-striped">
+      <table>
         <thead>
           <tr>
             <th>Facturar</th>
@@ -16,14 +25,14 @@
           <td>
             <form action="{% url 'facturar' reserva.pk %}" method="POST">
               {% csrf_token %}
-              <button class="btn btn-info">Facturar</button>
+              <button class="btn-mas">Facturar</button>
             </form>
           </td>
           <td>{{reserva.fecha}}</td>
           <td>
             <form action="{% url 'detalleReserva' reserva.productos admin.pk %}" method="POST">
               {% csrf_token %}
-              <button class="btn btn-info">
+              <button class="btn-mas">
                 Detalle del carrito:{{reserva.productos}}
               </button>
             </form>
@@ -42,12 +51,12 @@
     </div>
     <form action="{% url 'leerReservas' admin.pk %}" method="POST">
       {% csrf_token %}
-      <button class="btn btn-info">En espera</button>
+      <button class="btn-mas">En espera</button>
     </form>
 
     <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
       {% csrf_token %}
-      <button class="btn btn-info">Confirmados</button>
+      <button class="btn-mas">Confirmados</button>
     </form>
 
     <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
@@ -75,5 +84,9 @@
       </span>
       <span class="button-text">regresar</span>
     </button>
-
+    <div>
+      <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
+    </div> -->
+  </body>
+</html>
 {% endblock %}
