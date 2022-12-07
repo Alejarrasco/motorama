@@ -9,7 +9,7 @@ from django.contrib import messages
 #YO
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import usuario, administrador, reserva, penalizacion, producto, categoria
-from .forms import CrearAdministrador, CrearReservas, CrearPenalizacion, CrearUsuario, CrearProducto, CrearCategoria
+from .forms import CrearAdministrador, CrearReservas, CrearPenalizacion, CrearUsuario, CrearProducto, CrearCategoria, NewProducto
 from django.forms import formset_factory, modelformset_factory, inlineformset_factory
 from django.contrib.auth import login, logout, authenticate
 #from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -18,6 +18,9 @@ from django.utils import timezone #diferente al de python
 #MARCO
 import numpy as np
 
+from tkinter import *
+from PIL import Image, ImageTk
+from tkinter import filedialog
 # Create your views here.
 
 def index(request):
@@ -180,8 +183,11 @@ def CrearProductos(request, aid):
         })        
     else:
         try:
-            form = CrearProducto(request.POST) #esto se quedara con el form en html parece
-            form.save()
+            #form = CrearProducto(request.POST) #esto se quedara con el form en html parece
+            p = producto(nombre=request.POST['nombre'], precio=request.POST['precio'], descripcion=request.POST['descripcion'], disponible=True, marca=request.POST['marca'], stock=request.POST['stock'], categoria_id_categoria_id=request.POST['categoria_id_categoria'], img=request.FILES['img'])
+            p.save()
+            print(request.FILES)
+            print(request.POST)
             #new_task.save()
             #producto.objects.create(form)    
             return redirect('leerProductos', aid=adminActivo.pk)
@@ -575,4 +581,9 @@ def printfactura(request, nro):
     total_letras = numero_to_letras(fact.subtotal) + ' Bolivianos '
     return render(request, 'InterfazAdmin/factura.html', {'factura': fact, 'detalle': detalle, 'total_letras': total_letras})                                                            
 
+
+###def seleccionar_imagen(request):
+    archivo = filedialog.askopenfile(mode='r', filetypes=[('Archivos de imagen', '*.png')])
+    if archivo is not None:
+        imagen = Image.open(archivo)
 
