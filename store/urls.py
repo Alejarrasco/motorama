@@ -1,7 +1,8 @@
 #estas url es para estar mas organizado
 from django.urls import path
 from . import views #cuando pones . significa la ruta actual, osea importa de la ruta actual
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns=[
     # path('login/', views.login, name="login"), 
 
@@ -54,3 +55,4 @@ urlpatterns=[
     path('verCarrito/<int:cli>/<int:ven>', views.verCarrito, name='spyCarrito')
     
 ]
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
