@@ -11,7 +11,7 @@
   <body>
     <main class="container">
         <div class="row d-flex justify-content-center">
-            <img src="{% static 'imagenes/logo.png' %}" alt="" class="col-12 img-fluid"/>
+            <img src="{% static 'images/logo.png' %}" alt="" class="col-12 img-fluid"/>
             <h1 class="col-12">BIENVENIDO</h1>
         </div>
         
@@ -20,13 +20,13 @@
                 <p>Sistema de ventas en web E-Motorama</p>
             </div>
                 <div class="d-grid gap-2 col-6 mx-auto p-2">
-                    <div class="btn btn-danger"><a href="{% url 'paginaLogin' %}" class="link-light text-decoration-none font-monospace">Entrar como Cliente</a></div>
+                    <div class="btn btn-danger"><a href="{% url 'captchaLogIn' %}" class="link-light text-decoration-none font-monospace">Entrar como Cliente</a></div>
                     
-                    <div class="btn btn-danger"><a href="{% url 'paginaLoginAdmin' %}" class="link-light text-decoration-none font-monospace">Entrar como Administrador</a></div>
+                    <div class="btn btn-danger"><a href="{% url 'captchaLogInAdmin' %}" class="link-light text-decoration-none font-monospace">Entrar como Administrador</a></div>
                 </div>
                 <p>No tiene una cuenta?</p>
                 <div class="d-grid gap-2 col-6 mx-auto p-2">
-                    <div class="btn btn-secondary"><a href="{% url 'registro' %}" class="link-light text-decoration-none font-monospace">Registrarse</a></div>
+                    <div class="btn btn-secondary"><a href="{% url 'captchaSignUp' %}" class="link-light text-decoration-none font-monospace">Registrarse</a></div>
                 </div>
             </div>
         </div>
