@@ -35,6 +35,7 @@ class producto(models.Model):
     marca = models.CharField(max_length=20)
     stock = models.IntegerField()
     categoria_id_categoria = models.ForeignKey(categoria, on_delete=models.CASCADE)
+    img = models.ImageField(upload_to='media/',null=True,blank=True)
     def __str__(self): #to string
         return "id:" +str(self.pk) + "nombre:" +self.nombre + '- cateogoria_id_categoria ' + str(self.categoria_id_categoria) #creo que lo referencia en base al fk
 
