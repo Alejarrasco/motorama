@@ -120,7 +120,7 @@ class CrearProducto(ModelForm):
 class NewProducto(forms.Form):
     nombre = forms.CharField(label="Nombre", max_length=30)
     precio = forms.DecimalField(label="Precio",max_digits=5,decimal_places=2)
-    descripcion = forms.CharField(label="Descripcion",widget=forms.Textarea,max_length=100)
+    descripcion = forms.CharField(label="Descripcion",widget=forms.Textarea( attrs={'rows':'2', 'cols': '10'}),max_length=100)
     disponible = forms.BooleanField(label="En stock")
     marca = forms.CharField(label="Marca",max_length=20)
     stock = forms.IntegerField(label="stock")

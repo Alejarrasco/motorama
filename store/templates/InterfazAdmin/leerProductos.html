@@ -1,8 +1,33 @@
 {% extends 'layouts/base.html'%} {% block content %}
 <h1 class="text-center">Productos</h1>
-
-{{error}} {% for product in productos %} {% for category in categorias %}
-<!--Llaves iguales-->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-12">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              {{error}} {% for product in productos %} {% for category in categorias %}
+              <!--Llaves iguales-->
+              {% if category.id == product.categoria_id_categoria_id %}
+                <div class="col">
+                    <div class="card h-100" >         
+                        <img src="../../media/{{product.img}}" class="card-img-top mx-auto p-2" style="width: 300px;height: 300px;">
+                        <div class="card-body ">
+                            <h5 class="card-title text-center"><b>{{producto.nombre}}</b></h5>
+                            <p class="card-text ">Descripcion: {{product.descripcion}}</p>
+                            <p class="card-text ">Cantidad: {{product.stock}}</p>
+                            <p class="card-text ">Precio: {{product.precio}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %} {% endfor %} {% endfor %}
+                </div>                                    
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!--{{error}} {% for product in productos %} {% for category in categorias %}
+Llaves iguales
 {% if category.id == product.categoria_id_categoria_id %}
 <div class="container align-self-center justify-content-center p-2">
   <article class="card">
@@ -20,4 +45,5 @@
   </article>
 </div>
 
-{% endif %} {% endfor %} {% endfor %} {% endblock %}
+{% endif %} {% endfor %} {% endfor %} -->
+{% endblock %}
