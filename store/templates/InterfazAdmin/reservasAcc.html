@@ -40,20 +40,23 @@
 
 
     </div>
-    <form action="{% url 'leerReservas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn btn-info">En espera</button>
-    </form>
-
-    <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn btn-info">Confirmados</button>
-    </form>
-
-    <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
-      {% csrf_token %}
-      <button class="btn-info">Facturados</button>
-    </form>
+    <div class="container d-flex justify-content-between vh-100">
+      <form action="{% url 'leerReservas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-info">En espera</button>
+      </form>
+  
+      <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-info">Confirmados</button>
+      </form>
+  
+      <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn-info">Facturados</button>
+      </form>
+    </div>
+    
     <!-- <div id="combo-box1">
       <select name="Productos reservados" id="Productos_reservados">
         <option value="Productos reservados">Reservas en espera</option>
@@ -74,6 +77,6 @@
         <span class="icon arrow"></span>
       </span>
       <span class="button-text">regresar</span>
-    </button>
+    </button>-->
 
 {% endblock %}

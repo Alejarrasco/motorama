@@ -212,7 +212,7 @@ def administrarProducto(request, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
     productosFormset=modelformset_factory(producto, form=CrearProducto)
     if request.method == 'POST':
-        form = productosFormset(request.POST)
+        form = productosFormset(request.POST, request.FILES)
         print(request.POST)
         #print(request.POST)
         form.save()

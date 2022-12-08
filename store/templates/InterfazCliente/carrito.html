@@ -40,40 +40,6 @@
         </div>
     </div>
 </div>
-    <!--<h1>Carrito</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in productos %}
-                <tr>
-                    <td>{{ item.producto.nombre }}</td>
-                    <td>{{ item.cantidad }}</td>
-                    <td>{{ item.producto.precio }}</td>
-                    <td>{{ item.subtotal }}</td>
-                    <td>
-                        <form
-                            action="{% url 'eliminarProductoCarrito' cliente.NIT item.id %}"
-                            method="POST"
-                        >
-                            {% csrf_token %}
-                            <button class="btn-mas">
-                            Eliminar del carrito
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>-->
 
 
     <div class="widecard">
@@ -81,6 +47,6 @@
 
     
 
-    <a href="{% url 'confirmSale' cliente.NIT %}">Comprar</a>
+    <a href="{% url 'confirmSale' cliente.NIT %}" class="btn btn-info">Comprar</a>
     </div>
 {% endblock %}

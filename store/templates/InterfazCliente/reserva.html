@@ -38,15 +38,18 @@
             {% endfor %}
         </tbody>
     </table>
-    <form action="{% url 'reservation' cliente.NIT 0 %}" method="POST">
-        {% csrf_token %}
-        <button type="button" class="btn btn-info">Reservas pendientes</button>
-    </form>
+    <div class="container d-flex justify-content-between vh-100">
+        <form action="{% url 'reservation' cliente.NIT 0 %}" method="POST">
+            {% csrf_token %}
+            <button type="button" class="btn btn-info">Reservas pendientes</button>
+        </form>
+        
+        <form action="{% url 'reservation_Acpt' cliente.NIT 0 %}" method="POST">
+            {% csrf_token %}
+            <button type="button" class="btn btn-info">Reservas aceptadas</button>
+        </form>
+    </div>
     
-    <form action="{% url 'reservation_Acpt' cliente.NIT 0 %}" method="POST">
-        {% csrf_token %}
-        <button type="button" class="btn btn-info">Reservas aceptadas</button>
-    </form>
 
 
 {% endblock %}

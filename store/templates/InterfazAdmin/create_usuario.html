@@ -1,29 +1,37 @@
 {% extends 'layouts/base.html' %} {% block content %} 
 {{error}}
-
-<div class="container d-flex justify-content-center p-2" >
-  <div class="card border-info " >
-    <h3 class="card-header text-center">Crear Usuario</h3>
-    <div class="card-body">
-      <form method="POST">
-        {% csrf_token %} {{form.as_p}}
-        <button class="btn btn-info">Guardar</button>
-      </form>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="container d-flex justify-content-center p-2" >
+        <div class="card border-info " >
+          <h3 class="card-header text-center">Crear Usuario</h3>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %} {{form.as_p}}
+              <button class="btn btn-info">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="container d-flex justify-content-center p-2" >
+        <div class="card border-info " >
+          <h3 class="card-header text-center">Crear Usuario Administrador</h3>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %} {{form.as_p}}
+              <button class="btn btn-info">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container d-flex justify-content-center p-2" >
-  <div class="card border-info " >
-    <h3 class="card-header text-center">Crear Usuario Administrador</h3>
-    <div class="card-body">
-      <form method="POST">
-        {% csrf_token %} {{form.as_p}}
-        <button class="btn btn-info">Guardar</button>
-      </form>
-    </div>
-  </div>
-</div>
+
 
 
 

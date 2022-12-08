@@ -19,26 +19,25 @@
               <button class="btn btn-info">Aceptar</button>
             </form>
             <p>
-              <a href="#popup">
-                <button class="btn-menos">Rechazar</button>
-              </a>
+                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Rechazar</button>
             </p>
-            <!-- Flexbox container for aligning the toasts -->
-            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-              <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                  <strong class="me-auto">Bootstrap</strong>
-                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                  Estas seguro de rechazar el producto?
-                  <div class="mt-2 pt-2 border-top">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="exampleModalLabel"><h2>ADVERTENCIA</h2></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Estas seguro de rechazar el producto?</p>
+                  </div>
+                  <div class="modal-footer">
                     <form action="{% url 'rechazarReserva' reserva.id admin.pk %}" method="POST">
                       {% csrf_token %}
-                      <button class="btn btn-info btn-sm">Si</button>
+                      <button class="btn btn-info">Si</button>
                     </form>
                     <form action="{% url 'leerReservas' admin.pk %}">
-                      <button class="btn btn-info btn-sm">No</button>
+                      <button class="btn btn-info" data-bs-dismiss="modal">No</button>
                     </form>
                   </div>
                 </div>
@@ -68,40 +67,22 @@
 
     
     <div class="container d-flex justify-content-between vh-100">
-      <div class="row">
-        <div class="col-lg-5 p-2">
-          <form action="{% url 'leerReservas' admin.pk %}" method="POST">
-            {% csrf_token %}
-            <button class="btn btn-info">En espera</button>
-          </form>
-          <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
-            {% csrf_token %}
-            <button class="btn btn-info">Confirmados</button>
-          </form>
-          <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
-            {% csrf_token %}
-            <button class="btn-info">Facturados</button>
-          </form>
-        </div>
-        <!-- <div class="col-lg-7 p-2">
-          <select class="form-select form-select-sm" name="Productos reservados" id="Productos_reservados">
-            <option selected>Estado Reserva</option>
-            <option value="Productos reservados">Reservas en espera</option>
-            <option value="Productos recogidos">Reservas aceptadas</option>
-          </select>
-          <select class="form-select form-select-sm" name="Tipo_de_producto" id="Tipo_de_producto">
-            <option selected>Tipo de Producto</option>
-            <option value="Tipo1">Tipo1</option>
-            <option value="Tipo2">Tipo2</option>
-            <option value="Tipo3">Tipo3</option>
-            <option value="Tipo4">Tipo4</option>
-          </select>
-        </div> -->
-      </div>
+      <form action="{% url 'leerReservas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-info">En espera</button>
+      </form>
+      <form action="{% url 'reservasAceptadas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-info">Confirmados</button>
+      </form>
+      <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-info">Facturados</button>
+      </form>
     </div>
     <!--<button class="btn btn-info">
       <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
       </span>
-      <span class="button-text">regresar</span>-->
+      <span class="button-text">regresar</span>
 {% endblock %}
