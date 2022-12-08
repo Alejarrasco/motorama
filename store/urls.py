@@ -13,6 +13,10 @@ urlpatterns=[
     path('signup/',views.registroUsuario,name='registro'),
     path('Log_In/',views.paginaLogin,name='paginaLogin'),
     path('Log_InAdmin/',views.paginaLoginAdmin,name='paginaLoginAdmin'),
+    #Captchas
+    path('Captcha_Log_In/',views.captchaLogIn,name='captchaLogIn'),
+    path('Captcha_Log_In_Admin/',views.captchaLogInAdmin,name='captchaLogInAdmin'),
+    path('Captcha_Sign_Up/',views.captchaSignUp,name='captchaSignUp'),
 
     #Interfaz Administrador
     path('homeadmin/<int:aid>', views.homeadmin, name="homeadmin"), 

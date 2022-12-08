@@ -30,7 +30,7 @@ class categoria(models.Model):
 class producto(models.Model):
     nombre = models.CharField(max_length=30)
     precio = models.DecimalField(max_digits=7, decimal_places=2)
-    descripcion = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=300)
     disponible = models.BooleanField()
     marca = models.CharField(max_length=20)
     stock = models.IntegerField()
