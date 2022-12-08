@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html'%} {% load static %} {% block content %}
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,9 +12,9 @@
       type="text/css"
     />
   </head>
-  <body>
-    <div id="main-container">
-      <table>
+  <body> -->
+    <div id="main-container" class="container">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Fecha</th>
@@ -57,10 +57,9 @@
       </table>
       <!--fin logica-->
 
-
-
-
     </div>
+
+    <div class="container d-flex justify-content-between vh-100">
     <form action="{% url 'leerReservas' admin.pk %}" method="POST">
       {% csrf_token %}
       <button class="btn-mas">En espera</button>
@@ -75,6 +74,7 @@
         {% csrf_token %}
         <button class="btn-mas">Facturados</button>
       </form>
+    </div>
     <!-- <div id="combo-box1">
       <select name="Productos reservados" id="Productos_reservados">
         <option value="Productos reservados">Reservas en espera</option>
@@ -99,6 +99,6 @@
     <div>
       <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
     </div> -->
-  </body>
-</html>
+  <!-- </body>
+</html> -->
 {% endblock %}
