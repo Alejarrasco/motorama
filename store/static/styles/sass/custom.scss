@@ -14,6 +14,14 @@ $font-family-sans-serif: 'Barlow Semi Condensed', sans-serif;
 //xxl: 960px
 //);
 
+//imagen
+$thumbnail-padding:                 .25rem;
+$thumbnail-bg:                      $body-bg;
+$thumbnail-border-width:            $border-width;
+$thumbnail-border-color:            var(--#{$prefix}border-color);
+$thumbnail-border-radius:           $border-radius;
+$thumbnail-box-shadow:              $box-shadow-sm;
+
  //card desing
 $card-spacer-y:                     $spacer;
 $card-spacer-x:                     $spacer;

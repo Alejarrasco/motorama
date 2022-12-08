@@ -1,24 +1,43 @@
 {% extends 'layouts/base_cliente.html'%}
-
-
 {% block content %}
+
     <h1>Catalogo de Productos</h1>
     <p>Productos disponibles</p>
 
-    {% for producto in productos %}
-    {% if producto.disponible %}
     <!--Sugerencia de Copilot-->
-    <div class="card">
-        <!--<img src="{{producto.imagen.url}}" alt="Avatar" style="width:100%">-->
-        
-        <div class="container">
-            <h4><b>{{producto.nombre}}</b></h4>
-            <p>Bs.{{producto.precio}}</p>
-            
-            <p><a href="{% url 'productDisplay' cli=cliente.NIT pid=producto.id %}">Agregar al carrito</a></p>
-            
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                            <div class="container">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                        {% for producto in productos %}
+                                    {% if producto.disponible %}
+                                    <div class="col">
+                                        <div class="card h-100" >         
+                                            <img src="../../media/{{producto.img}}" class="card-img-top mx-auto p-2" style="width: 300px;height: 300px;">
+                                            <div class="card-body ">
+                                                <h5 class="card-title text-center"><b>{{producto.nombre}}</b></h5>
+                                                <p class="card-text ">Precio: Bs.{{producto.precio}}</p>
+                                                <p class="card-text ">Descripcion: {{producto.descripcion}}</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <p class="card-text">
+                                                    <a href="{% url 'productDisplay' cli=cliente.NIT pid=producto.id %}">
+                                                        <button class="btn btn-info">Agregar al carrito</button>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    </div>                                    
+                                </div>
+                            </div>
+            </div>
         </div>
     </div>
-    {% endif %}
-    {% endfor %}
+    
+    
+    
 {% endblock %}
