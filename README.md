@@ -28,7 +28,7 @@ Motorama es una sociedad de responsabilidad limitada dedicada a la compra y vent
 
 Durante el desarrollo del proyecto implementó una metodología basada en pruebas. La organización se subdividió en las siguientes categorías:
 
-![image](https://user-images.githubusercontent.com/86273260/206495265-367a666d-9c35-4ef5-ab7a-7289c6a1993c.png)
+![image](https://user-images.githubusercontent.com/86273260/206495741-6384e898-a0a4-45c1-8a91-c10d9a31b3c9.png)
 
 El modelo de E-Commerce cuenta con una base de datos para la gestión de las ventas, así como administración del stock a la venta. En la misma se registran los carritos de compras, las reservas que tenga el cliente, y también hacer el seguimiento del rendimiento de las ventas que se están realizando por la plataforma.
 
