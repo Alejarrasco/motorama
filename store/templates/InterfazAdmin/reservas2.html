@@ -23,22 +23,24 @@
                 <button class="btn-menos">Rechazar</button>
               </a>
             </p>
-            <div id="popup" class="overlay">
-              <div id="popupBody">
-                <h2>Estas seguro de rechazar el producto?</h2>
-                <a id="cerrar" href="#">&times;</a>
-                <div class="popupContent">
-                  <form
-                    action="{% url 'rechazarReserva' reserva.id admin.pk %}"
-                    method="POST"
-                  >
-                    {% csrf_token %}
-                    <button class="btn btn-info">Si</button>
-                  </form>
-
-                  <form action="{% url 'leerReservas' admin.pk %}">
-                    <button class="btn-menos">No</button>
-                  </form>
+            <!-- Flexbox container for aligning the toasts -->
+            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+              <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="me-auto">Bootstrap</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                  Estas seguro de rechazar el producto?
+                  <div class="mt-2 pt-2 border-top">
+                    <form action="{% url 'rechazarReserva' reserva.id admin.pk %}" method="POST">
+                      {% csrf_token %}
+                      <button class="btn btn-info btn-sm">Si</button>
+                    </form>
+                    <form action="{% url 'leerReservas' admin.pk %}">
+                      <button class="btn btn-info btn-sm">No</button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
