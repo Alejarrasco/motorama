@@ -10937,7 +10937,7 @@ textarea.form-control-lg {
 }/*# sourceMappingURL=custom.css.map */
 
 /* Tratando de hacer funcionar los popups */
-#popupBody {
+/* #popupBody {
   width: 46%;
   padding: 2%;
   border-radius: 15px;
@@ -10969,4 +10969,4 @@ textarea.form-control-lg {
   visibility: hidden;
   opacity: 0;
   z-index: 1000 !important;
-}
+} */

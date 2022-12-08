@@ -3,22 +3,30 @@
 {% block content %}
 {% load static %}
 
-<h1>Pago con tarjeta</h1>
+<h1>Pago con transferencia QR</h1>
+<div class="container">
+    <img src="{% static 'images/pagoconqr.png' %}" alt="" width="500px" class="rounded mx-auto d-block">
+    <div class="row">
 
-<img src="{% static 'images/pagoconqr.png' %}" alt="">
 
-<form method="POST">
-    
-    {% csrf_token %}
-    <p>Realice el pago mediante el código Qr, a continaución ingrese aquí el número de transferencia</p>
-    {{form.as_p}}
+<div class="col-12">
+    <div class="row">
+        
+        <form method="POST">
+        <div class="col-8">
+            {% csrf_token %}
+            <p>Realice el pago mediante el código Qr, a continaución ingrese aquí el número de transferencia</p>
+            {{form.as_p}}
+            
+        </div>
+        <div class="btn">
+            <button>
+                Aceptar
+            </button>
+        </div>
+        </form>
+    </div>
+</div>
 
-    <button>
-        Aceptar
-    </button>
-    <button>
-        Cancelar
-    </button>
-</form>
 
 {% endblock %}

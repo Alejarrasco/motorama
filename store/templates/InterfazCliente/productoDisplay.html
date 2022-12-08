@@ -2,25 +2,31 @@
 
 {% block content %}
 
-<h1><b>{{producto.nombre}}</b></h1>
+
         
-        <div class="displayer">
-            {% if error %}
-            <p><b>{{error}}</b></p>
-            {% endif %}
-            <p>{{producto.descripcion}}</p>
-            <p><i>Disponible en stock: {{producto.stock}}</i></p>
-            <p>${{producto.precio}}</p>
-            <form method="POST">
-                {% csrf_token %}
-                {{form.as_p}}<br>
-                <button>
-                    Agregar al Carrito
-                </button>
-            </form>
-            <img src="../../media/{{product.img}}" width="150px">
-            <p><a href="{% url 'products' cli=cliente.NIT %}">Volver</a></p>
-            <p>holi{{product.img}}</p>
+        <div class="container">
+            <h1 class="col-12 text-start"><b>{{producto.nombre}}</b></h1>
+            <div class="row">
+                <div class="col-lg-5">
+                    {% if error %}
+                    <p><b>{{error}}</b></p>
+                    {% endif %}
+                    <p>{{producto.descripcion}}</p>
+                    <p><i>Disponible en stock: {{producto.stock}}</i></p>
+                    <p>${{producto.precio}}</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}<br>
+                        <button>
+                            Agregar al Carrito
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-7">
+                    <img src="../../../media/{{product.img}}" width="150px">
+                    <p><a href="{% url 'products' cli=cliente.NIT %}">Volver</a></p>
+                </div>
+            </div>
         </div>
 
 {% endblock %}

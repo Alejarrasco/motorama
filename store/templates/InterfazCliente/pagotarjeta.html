@@ -4,17 +4,23 @@
 {% load static %}
 
 <h1>Pago con tarjeta</h1>
-
-<img src="{% static 'images/pagocontarjeta.jfif' %}" alt="">
-
-<form method="POST">
+<div class="container">
+<img src="{% static 'images/pagocontarjeta.jfif' %}" alt="" width="500px" class="rounded mx-auto d-block">
+<div class="row">
+    <div class="col">
+        <form method="POST">
     
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <button>
-        Aceptar
-    </button>
-</form>
+            {% csrf_token %}
+            {{form.as_p}}
+        
+            <div class="btn">
+                <button>
+                    Aceptar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
 
 {% endblock %}
