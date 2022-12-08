@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1><b>{{producto.nombre}}</b></h1>
-        <!--<img src="{{producto.imagen.url}}" alt="Avatar" style="width:100%">-->
+        
         <div class="displayer">
             {% if error %}
             <p><b>{{error}}</b></p>
@@ -18,7 +18,9 @@
                     Agregar al Carrito
                 </button>
             </form>
+            <img src="../../media/{{product.img}}" width="150px">
             <p><a href="{% url 'products' cli=cliente.NIT %}">Volver</a></p>
+            <p>holi{{product.img}}</p>
         </div>
 
 {% endblock %}
