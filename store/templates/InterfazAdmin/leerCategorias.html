@@ -1,9 +1,15 @@
 {% extends 'layouts/base.html'%} {% block content %}
-<h1>Categorias</h1>
+<h1 class="text-center">Categorias</h1>
 
 {{error}} {% for category in categorias %}
-<li>
-  <strong>Nombre: {{category.nombre}}</strong>
-  <p>Descripcion: {{category.descripcion}}</p>
-</li>
+<div class="container align-self-center justify-content-center p-2">
+  <article class="card">
+    <div class="card-body">
+      <li>
+        <strong>Nombre: {{category.nombre}}</strong>
+        <p>Descripcion: {{category.descripcion}}</p>
+      </li>
+    </div>
+  </article>
+</div>
 {% endfor %} {% endblock %}

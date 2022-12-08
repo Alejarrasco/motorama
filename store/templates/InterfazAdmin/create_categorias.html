@@ -1,8 +1,14 @@
 {% extends 'layouts/base.html'%} {% block content %} {{error}}
 
-<h1>Añadir categorias</h1>
-<form method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <button>Guardar</button>
-</form>
+<div class="container d-flex justify-content-center" >
+  <div class="card border-info " >
+    <h3 class="card-header text-center">Añadir categorias</h3>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <button class="btn btn-info">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
