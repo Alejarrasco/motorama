@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'e_motorama.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql', #No se olviden utilizar la información que utilicen en su compu
-        'NAME': "emotorama",
-        'USER': "sa",
-        'PASSWORD': "123456",
-        'HOST': 'DESKTOP-UD0VPHI\MSSQLSERVER1',
+        'ENGINE': 'mssql',
+        'NAME': 'emotorama',
+        'USER': 'sa',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server'
