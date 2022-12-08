@@ -1,8 +1,11 @@
 {% extends 'layouts/base_cliente.html' %}
 
 {% block content %}
-
-<table>
+<h1>Confirma tu compra</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Producto</th>
@@ -27,20 +30,26 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset>
-            <legend>Seleccione su forma de pago:</legend>
-            <div class="radiobox">
-                <input type="radio" name="pago" value="tarjeta" id="pago1" checked>
-                <label for="pago1">Tarjeta</label>
-                <input type="radio" name="pago" value="transferencia QR" id="pago2">
-                <label for="pago2">Transferencia con QR</label>
+            <legend>Selecciona tu forma de pago:</legend>
+            <div class="radiobox p-4 border ">
+                <div class="col-4">
+                    <input type="radio" name="pago" value="tarjeta" id="pago1" checked>
+                <label for="pago1" class="font-monospace">Tarjeta</label>
+                </div>
+                <div class="col-4">
+                    <input type="radio" name="pago" value="transferencia QR" id="pago2">
+                <label for="pago2" class="font-monospace">Transferencia con QR</label>
+                </div>
             </div>
         </fieldset>
-
+        <br>
         <!--{% csrf_token %}
         {{form.as_p}}<br>-->
         <button>
             Aceptar
         </button>
     </form>
-
+</div>
+</div>
+</div>
 {% endblock %}
