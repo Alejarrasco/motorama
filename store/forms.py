@@ -147,3 +147,11 @@ class AddToCartForm(forms.Form):
 class HacerVenta(forms.Form):
     CHOICES = [('tarjeta','tarjeta'),('efectivo','efectivo')]
     payment = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
+class ventaConTarjeta(forms.Form):
+    numero_tarjeta = forms.IntegerField(label="Numero de tarjeta", widget=forms.NumberInput(attrs={'class':'input'}))
+    fecha_vencimiento = forms.DateField(label="Fecha de vencimiento", widget=forms.SelectDateWidget(years=range(1900,2030),attrs={'class':'input'}))
+    codigo_seguridad = forms.IntegerField(label="Codigo de seguridad", widget=forms.NumberInput(attrs={'class':'input'}))
+
+class ventaConQR(forms.Form):
+    codigo_qr = forms.IntegerField(label="Codigo de seguridad", widget=forms.NumberInput(attrs={'class':'input'}))

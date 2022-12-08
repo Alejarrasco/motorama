@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'e_motorama.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'motorama',
-        'USER': 'NataliaProyectoSis',
-        'PASSWORD': '1234',
-        'HOST': 'DESKTOP-JPMRRH8\\NATALIASQLSERVER',
+        'ENGINE': 'mssql', #No se olviden utilizar la información que utilicen en su compu
+        'NAME': "Moto1",
+        'USER': "",
+        'PASSWORD': "",
+        'HOST': 'DESKTOP-645H98R',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server'

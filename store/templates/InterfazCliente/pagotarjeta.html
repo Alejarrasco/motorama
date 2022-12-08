@@ -1,0 +1,20 @@
+{% extends 'layouts/base_cliente.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1>Pago con tarjeta</h1>
+
+<img src="{% static 'images/pagocontarjeta.jfif' %}" alt="">
+
+<form method="POST">
+    
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button>
+        Aceptar
+    </button>
+</form>
+
+{% endblock %}

@@ -76,9 +76,11 @@
     </table>-->
 
 
-    <p>Total a pagar: Bs.{{total}}</p>
+    <div class="widecard">
+        <p>Total a pagar: Bs.{{total}}</p>
 
     
 
     <a href="{% url 'confirmSale' cliente.NIT %}">Comprar</a>
+    </div>
 {% endblock %}

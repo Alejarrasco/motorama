@@ -26,11 +26,13 @@
     </table>
 
 
-    <p>Total a pagar: Bs.{{total}}</p>
+    <div class="widecard">
+        <p>Total a pagar: Bs.{{total}}</p>
     <p>Forma de pago: {{pago}}</p>
     <p>Encargado: {{admin}}</p>
 
     
 
     <a href="{% url 'reservation' cliente.NIT 0 %}">Volver</a>
+    </div>
 {% endblock %}
