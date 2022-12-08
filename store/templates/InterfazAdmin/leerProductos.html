@@ -14,7 +14,10 @@
         <p>Descripcion: {{product.descripcion}}</p>
         <p>Cantidad: {{product.stock}}</p>
         <p>Precio: {{product.precio}}</p>
+        {% if product.img != "null" %}
         <img src="../../media/{{product.img}}" width="150px">
+        {% endif %}
+        
       </li>
     </div>
   </article>

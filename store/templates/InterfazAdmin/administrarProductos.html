@@ -13,7 +13,7 @@
             <th>Disponible</th>
           </tr>
         </thead>
-        <form method="POST">
+        <form method="POST", enctype="multipart/form-data">
           {{ forms.management_form }} {% csrf_token %} {% for form in forms %}
             <td>{{form.nombre}}</td>
 
@@ -28,6 +28,7 @@
             <td>{{form.precio}}</td>
             <td>{{form.disponible}}</td>
             {{form.id}}
+            <td>{{form.img}}</td>
           </tr>
           
           {% endfor %}

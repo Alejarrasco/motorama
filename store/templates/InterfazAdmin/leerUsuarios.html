@@ -1,8 +1,11 @@
 {% extends 'layouts/base.html'%} {% block content %}
 
-<h1 class="text-center">Usuarios</h1>
+{{error}} 
+<h1 class="text-center">Administradores</h1>
+{% for user in usuarios %}
+{% for admin in admins %}
 
-{{error}} {% for user in usuarios %}
+{% if user.id == admin.usuarios_id_usuario_id %}
 <!--Llaves iguales-->
 <div class="container align-self-center justify-content-center p-2">
   <article class="card bg-info">
@@ -15,5 +18,29 @@
     </div>
   </article>
 </div>
+{% endif %}
+{% endfor %} 
+{% endfor %} 
 
-{% endfor %} {% endblock %}
+<h1 class="text-center">Clientes</h1>
+{% for user in usuarios %}
+{% for cliente in clientes %}
+{% if user.id == cliente.id_usuario_id %}
+<!--Llaves iguales-->
+<div class="container align-self-center justify-content-center p-2">
+  <article class="card bg-info">
+    <div class="card-body">
+      <h2 class="card-title text-white">{{user.id}} {{user.nombre}} {{user.apellido}}</h2>
+      <p class="card-text text-center text-white">Nombre: {{user.nombre}}</p>
+      <p class="card-text text-center text-white">Apellido: {{user.apellido}}</p>
+      <p class="card-text text-center text-white">Direccion: {{user.direccion}}</p>
+      <p class="card-text text-center text-white">Correo: {{user.correo}}</p>
+    </div>
+  </article>
+</div>
+{% endif %}
+
+{% endfor %} 
+{% endfor %} 
+
+{% endblock %}

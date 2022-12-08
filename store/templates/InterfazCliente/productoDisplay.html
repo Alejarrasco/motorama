@@ -18,9 +18,12 @@
                     Agregar al Carrito
                 </button>
             </form>
-            <img src="../../media/{{product.img}}" width="150px">
+            {% if producto.img != "null" %}
+            <img src="../../../media/{{producto.img}}" class="card-img-top mx-auto p-2" style="width: 300px;height: 300px;">
+            {% endif %}
+            
             <p><a href="{% url 'products' cli=cliente.NIT %}">Volver</a></p>
-            <p>holi{{product.img}}</p>
+            
         </div>
 
 {% endblock %}

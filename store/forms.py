@@ -114,6 +114,7 @@ class CrearCategoria(ModelForm):
 
 class CrearProducto(ModelForm):
     descripcion = forms.CharField(widget=forms.Textarea)
+    img = forms.ImageField(widget= forms.FileInput)
     class Meta: #En cual modelo estara basado
         model = producto
         fields=['nombre', 'precio', 'descripcion','disponible','marca','stock','categoria_id_categoria','img']

@@ -193,12 +193,13 @@ def CrearProductos(request, aid):
     else:
         try:
             #form = CrearProducto(request.POST) #esto se quedara con el form en html parece
-            p = producto(nombre=request.POST['nombre'], precio=request.POST['precio'], descripcion=request.POST['descripcion'], disponible=True, marca=request.POST['marca'], stock=request.POST['stock'], categoria_id_categoria_id=request.POST['categoria_id_categoria'], img=request.FILES['img'])
-            p.save()
-            print(request.FILES)
-            print(request.POST)
-            #new_task.save()
-            #producto.objects.create(form)    
+            verif=request.FILES
+            if verif:
+                p = producto(nombre=request.POST['nombre'], precio=request.POST['precio'], descripcion=request.POST['descripcion'], disponible=True, marca=request.POST['marca'], stock=request.POST['stock'], categoria_id_categoria_id=request.POST['categoria_id_categoria'], img=request.FILES['img'])
+                p.save()
+            else:
+                p = producto(nombre=request.POST['nombre'], precio=request.POST['precio'], descripcion=request.POST['descripcion'], disponible=True, marca=request.POST['marca'], stock=request.POST['stock'], categoria_id_categoria_id=request.POST['categoria_id_categoria'], img='null')
+                p.save()
             return redirect('leerProductos', aid=adminActivo.pk)
         except ValueError:
             return render(request, 'InterfazAdmin/create_product.html',{
@@ -207,12 +208,11 @@ def CrearProductos(request, aid):
             'error' : 'Please provide valid data'
             })
 
-
 def administrarProducto(request, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
-    productosFormset=modelformset_factory(producto, form=CrearProducto)
+    productosFormset=modelformset_factory(producto, form=CrearProducto, extra=0)
     if request.method == 'POST':
-        form = productosFormset(request.POST)
+        form = productosFormset(request.POST, request.FILES)
         print(request.POST)
         #print(request.POST)
         form.save()
@@ -300,10 +300,14 @@ def leerUsuarios(request, aid):
     #productos=producto.objects.all() 
     adminActivo = get_object_or_404(administrador, id=aid)
     usuarios = usuario.objects.all()
+    admins = administrador.objects.all()
+    clientes = cliente.objects.all() 
     try:
         return render(request,'InterfazAdmin/leerUsuarios.html',{
             'usuarios':usuarios,
             'admin': adminActivo,
+            'admins' : admins,
+            'clientes' : clientes
         })
     except:
         return render(request,'InterfazAdmin/leerUsuarios.html',{
@@ -479,6 +483,7 @@ def productos(request, cli): #boton productos
 def productDisplay(request, cli, pid): #aparece cuando seleccionas un producto
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     productoActivo = get_object_or_404(producto, id=pid)
+    #print(productoActivo.img)
     if request.method == 'GET':
         return render(request, 'InterfazCliente\productoDisplay.html', {'cliente': clienteActivo,
                                                                         'producto': productoActivo,
@@ -550,6 +555,7 @@ def confirmarVenta(request, cli):
         else:
             return redirect('pagoQR', cli=clienteActivo.NIT)
         
+
 def pagotarjeta(request, cli):
     clienteActivo = get_object_or_404(cliente, NIT=cli)
     carritoActivo = get_object_or_404(carrito, cliente=clienteActivo, activo=True)
@@ -634,12 +640,3 @@ def verCarrito(request, cli, ven):
                                                                 'fecha': ventaActiva.fecha,
                                                                 'pago': ventaActiva.forma_de_pago,
                                                                 'admin': ventaActiva.administrador})
-
-
-
-
-###def seleccionar_imagen(request):
-    archivo = filedialog.askopenfile(mode='r', filetypes=[('Archivos de imagen', '*.png')])
-    if archivo is not None:
-        imagen = Image.open(archivo)
-
