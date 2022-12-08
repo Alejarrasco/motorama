@@ -16,7 +16,7 @@
   <body>
       <nav class="container-vr navbar navbar-expand-lg navbar-secondary justify-content-center text-info">
         <a class="navbar-brand d-lg-none" href="{% url 'homeadmin' admin.id %}">
-          <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' %}" style="width: 100px;">
+          <img class="rounded-pill" src="{% static 'imagenes/logo_SinBorde.png' %}" style="width: 100px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'leerProductos' admin.pk %}">Administrar Productos</a></li>
     
             <a class="navbar-brand d-none d-lg-block" href="{% url 'homeadmin' admin.id %}">
-              <img class="rounded-pill" src="{% static 'images/logo_SinBorde.png' admin.pk %}" style="width: 100px;">
+              <img class="rounded-pill" src="{% static 'imagenes/logo_SinBorde.png' admin.pk %}" style="width: 100px;">
             </a>
 
             <li class="nav-item"><a class="nav-link" href="{% url 'administrarProductos' admin.pk %}">Forms Productos</a></li>

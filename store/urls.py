@@ -1,19 +1,19 @@
 #estas url es para estar mas organizado
 from django.urls import path
 from . import views #cuando pones . significa la ruta actual, osea importa de la ruta actual
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns=[
     # path('login/', views.login, name="login"), 
+
     path('', views.index, name="index"),
+
+
     #Interfaz Login
     path('signup/',views.registroUsuario,name='registro'),
     path('Log_In/',views.paginaLogin,name='paginaLogin'),
     path('Log_InAdmin/',views.paginaLoginAdmin,name='paginaLoginAdmin'),
-    #Captchas
-    path('Captcha_Log_In/',views.captchaLogIn,name='captchaLogIn'),
-    path('Captcha_Log_In_Admin/',views.captchaLogInAdmin,name='captchaLogInAdmin'),
-    path('Captcha_Sign_Up/',views.captchaSignUp,name='captchaSignUp'),
-    
+
     #Interfaz Administrador
     path('homeadmin/<int:aid>', views.homeadmin, name="homeadmin"), 
     path('leerAdministradores/<int:aid>', views.leerAdministradores, name="leerAdministradores"), 
@@ -58,3 +58,4 @@ urlpatterns=[
     path('pagoQR/<int:cli>', views.pagoQR, name='pagoQR'),
     
 ]
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

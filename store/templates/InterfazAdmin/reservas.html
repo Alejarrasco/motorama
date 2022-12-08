@@ -1,16 +1,6 @@
 {% extends 'layouts/base.html'%} {% load static %} {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reservas</title>
-    <link rel="stylesheet" href="{% static 'styles/tabla.css'%}" />
-  </head>
-  <body>
-    <div id="main-container">
-      <table>
+    <div class="container">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Agregar/Quitar</th>
@@ -78,12 +68,17 @@
         </tr>
       </table>
     </div>
-    <div id="combo-box1">
+    <div class="dropdown">
+      <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Estado reserva
+      </button>
       <select name="Productos reservados" id="Productos_reservados">
         <option value="Productos reservados">Productos reservados</option>
         <option value="Productos recogidos">Productos recogidos</option>
       </select>
     </div>
+  
+
     <div id="combo">
       <select name="Tipo_de_producto" id="Tipo_de_producto">
         <option value="Tipo">Tipo de Producto</option>
@@ -99,9 +94,4 @@
       </span>
       <span class="button-text">regresar</span>
     </button>
-    <div>
-      <img src="{% static 'imagenes/logo.png' %}" width="200" alt="" />
-    </div>
-  </body>
-</html>
 {% endblock %}
