@@ -106,6 +106,15 @@ def paginaLoginAdmin(request): #todo: corregir con if
 #                     'error' : 'No existe este usuario'
 #                 })  
 
+def captchaLogIn(request):
+    return render(request,'login/Captcha_Log_In.html')
+
+def captchaLogInAdmin(request):
+    return render(request,'login/Captcha_Log_In_Admin.html')
+
+def captchaSignUp(request):
+    return render(request,'login/Captcha_Sign_Up.html')
+
 def homeadmin(request, aid):
     adminActivo = get_object_or_404(administrador, id=aid)
     return render(request, 'InterfazAdmin\home.html', {'admin': adminActivo})

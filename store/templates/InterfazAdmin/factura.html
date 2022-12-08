@@ -8,64 +8,80 @@
 <body>
     {% load static %}
 <div class="container d-flex alto-100">
+    <div class="row">
+        <div class="col-12 col-lg-5">
+            <img src="{% static 'imagenes/logo.png'%}" alt="" width="500px" class="img-fluid">
+        </div><div class="col-12 col-lg-7 text-lg-end">
+            <h1>MOTORAMA S.R.L.</h1>
+            <b>Factura No. {{ factura.id }}</b><br>
+            <i>NIT 123456789</i><br>
+            CÓDIGO DE AUTORIZACIÓN:<br>
+            45CD068EB610E3985288<br>
+            EEB0F529C8C8B51C33A9<br>
+            42655404F30BB6D74<br>
+        </div>
     
-<div class="row">
-<div class="row">
-    <img src="{% static 'imagenes/logo.png'%}" alt="" width="200px" class="col-12 col-lg-6">
-
-    <h1 class="col-12 col-lg-6 align-middle d-flex justify-content-center "><br><br>MOTORAMA S.R.L.</h1>
+        <div class="col-12 col-lg-4 text-center fs-6">
+            CASA MATRIZ<br>
+            C. Héroes del Acre N°1534<br>
+            Telf. 60676400<br>
+            LA PAZ - BOLIVIA<br>
+        </div>
+        <div class="col-12 col-lg-4 text-center">
+            <h1>FACTURA</h1>
+            <h4>(sin derecho a credito fiscal)</h4>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end">
+            Casa Automotriz<br>
+        </div>
     
-    <p class="col-12 col-lg-6 align-middle"><br><br><b>Factura No. {{ factura.id }}</b></p>
-    <p class="col-12 col-lg-6 d-flex justify-content-center"><i>NIT 123456789</i></p>
-    <p class="col-12 col-lg-6"> </p>
-    <p class="col-12 col-lg-6">Casa Matriz: C.Heroes del Acre N°1534<br>Teléfono: 1234567 <br>
-        La Paz - Bolivia <br></p>
+        <div class="col-12 text-lg-start">
+            <br>
+            <b>Fecha:</b> {{ factura.fecha }}<br>
+            <b>Cliente:</b> {{ factura.razon_social }}<br>
+            <b>NIT:</b> {{ factura.venta_id_venta.productos.cliente.NIT }}<br>
+            <b>Vendedor:</b> {{ factura.venta_id_venta.administrador.usuarios_id_usuario.nombre }} {{ factura.venta_id_venta.administrador.usuarios_id_usuario.apellido }}<br>
+        </div>
     
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <b>Fecha:</b> {{ factura.fecha }} <br>
-        <b>Cliente:</b> {{ factura.razon_social }} <br>
-        <b>NIT:</b> {{ factura.venta_id_venta.productos.cliente.NIT }} <br>
-        <b>Vendedor:</b> {{ factura.venta_id_venta.administrador.usuarios_id_usuario.nombre }} {{ factura.venta_id_venta.administrador.usuarios_id_usuario.apellido }} <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:  8.33%">Cod Producto</th>
+                <th style="width: 10%">Cantidad</th>
+                <th style="width: 48.3%">Concepto</th>
+                <th style="width: 16.66%">Precio Unitario Bs.</th>
+                <th style="width: 16.66%">Monto Bs.</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalle %}
+            <tr>
+                <td>{{ item.producto.id }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.producto.precio }}</td>
+                <td class="text-end">{{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+        <div class="col-12 col-lg-9">
+            <p>SON: {{ total_letras }}</p>
+        </div>
+        <div class="col-12 col-lg-3 text-end">
+            <p><b>Total Bs.:</b> {{ factura.total }}</p>
+        </div>
+    
+        <div class="col-12 fs-6">
+            "ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS, EL USO ILÍCITO ES SANCIONADO PENALMENTE LEY 453"
+        </div>
+        <div class="col-12 fs-6">
+            Ley N° 453: El proveedor de servicios debe habilitar medios e instrumentos para efectuar consultas y reclamaciones.
+        </div>
+        <div class="col-12 fs-6">
+            Este documento es una impresión de un Documento Digital emitido en una Modalidad de Facturación PROFORMA en Línea
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12 bg-gray">
-        Detalle de la Factura
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Cod Producto</th>
-                    <th>Cantidad</th>
-                    <th>Concepto</th>
-                    <th>Precio Unitario Bs.</th>
-                    <th>Monto Bs.</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in detalle %}
-                <tr>
-                    <td>{{ item.producto.id }}</td>
-                    <td>{{ item.cantidad }}</td>
-                    <td>{{ item.producto.nombre }}</td>
-                    <td>{{ item.producto.precio }}</td>
-                    <td>{{ item.subtotal }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="row">
-Son: {{ total_letras }} <br>
-Impuesto sobre el valor agregado: {{ factura.IVA }} <br>
-Total: {{ factura.total }} <br>
-</div>
-
-<p class="row">Gracias por su compra, vuelva pronto</p>
-</div>
-</div>
 </body>
 </html>

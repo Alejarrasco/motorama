@@ -78,8 +78,12 @@
             {% csrf_token %}
             <button class="btn btn-info">Confirmados</button>
           </form>
+          <form action="{% url 'reservasFacturadas' admin.pk %}" method="POST">
+            {% csrf_token %}
+            <button class="btn-info">Facturados</button>
+          </form>
         </div>
-        <div class="col-lg-7 p-2">
+        <!-- <div class="col-lg-7 p-2">
           <select class="form-select form-select-sm" name="Productos reservados" id="Productos_reservados">
             <option selected>Estado Reserva</option>
             <option value="Productos reservados">Reservas en espera</option>
@@ -92,12 +96,12 @@
             <option value="Tipo3">Tipo3</option>
             <option value="Tipo4">Tipo4</option>
           </select>
-        </div>
+        </div> -->
       </div>
     </div>
     <!--<button class="btn btn-info">
       <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
       </span>
-      <span class="button-text">regresar</span>
+      <span class="button-text">regresar</span>-->
 {% endblock %}
